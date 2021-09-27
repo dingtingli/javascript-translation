@@ -3,6 +3,8 @@
 
 点击访问：[原文地址](https://dev.to/lydiahallie/javascript-visualized-event-loop-3dif)
 
+作者：[Lydia Hallie](@lydiahallie)
+
 事件循环( Event Loop )是每个 JavaScript 开发人员都必须学习的概念之一，但是这个概念一开始理解起来会有点让人困惑。我是一个可视化的学习者，所以我尝试着用 gif 动态图片来解释这个概念。
 
 首先，什么是事件循环( Event Loop )？我们为什么要关注它？
@@ -36,7 +38,7 @@ JavaScript 是一门单线程语言：同一时间只能运行一个任务。通
 
 看上面的讲解你会觉得很有意思，感觉看懂了。但是想真正理解这些内容，我们需要一遍一遍的实践。试着想一想，下面这段代码会输出什么内容到控制台：
 
-```js
+```javascript
 const foo = () => console.log("First");
 const bar = () => setTimeout(() => console.log("Second"), 500);
 const baz = () => console.log("Third");
