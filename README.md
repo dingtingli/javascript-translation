@@ -2,3 +2,5 @@
 JavaScript 文章翻译
 
 1. [V8引擎如何一步一步地运行](doc/V8引擎如何一步一步地运行.md)
+
+2. [✨♻️可视化的JavaScript：事件循环](doc/可视化的JavaScript：事件循环.md)
