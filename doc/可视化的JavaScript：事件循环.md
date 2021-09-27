@@ -1,4 +1,4 @@
-# ✨♻️JavaScript Visualized: Event Loop
+# ✨♻️: Event Loop
 # 翻译：✨♻️可视化的 JavaScript：事件循环
 
 点击访问：[原文地址](https://dev.to/lydiahallie/javascript-visualized-event-loop-3dif)
