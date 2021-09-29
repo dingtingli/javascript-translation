@@ -7,7 +7,7 @@
 
 ![GIF 00](./illustrations/JSVisual03Scope/gif00.gif)
 
-是时候讨论作用域链了（ Scope Chain ）。在此之前，我假设你已经知道了一些执行上下文（ Execution Context ）的基础知识。
+是时候讨论作用域链（ Scope Chain ）了。在此之前，我假设你已经知道了一些执行上下文（ Execution Context ）的基础知识。
 
 让我们先来看看下面这段代码：
 
@@ -28,7 +28,7 @@ console.log(getPersonInfo())
 
 ```
 
-代码最后调用了函数 `getPersonInfo` ，该函数返回一个包含变量 `name` ， `age` 和 `city` 的字符串：
+代码最后一句调用了函数 `getPersonInfo` ，该函数返回一个包含变量 `name` ， `age` 和 `city` 的字符串：
 
 `Sarah is 22 and lives in San Francisco`
 
@@ -36,15 +36,15 @@ console.log(getPersonInfo())
 
 首先，不同的上下文（ context ）分配有不同的内存空间。我们有一个默认的**全局上下文**（ global context ）：浏览器中是指 `windows`，Node 中是指 `global` 。已经被调用的函数 `getPersonInfo` 有一个本地上下文（ local context ）。每个上下文都有一个作用域链（ scope chain ）。
 
-对于 `getPersonInfo` 函数而言，作用域链（ scope chain ）看起来像这样（别担心看不懂，这张图还不一定有意义呢）：
+对于 `getPersonInfo` 函数而言，作用域链（ scope chain ）看起来像这样（别担心看不懂，现在还不需要完全理解）：
 
 ![GIF 01](./illustrations/JSVisual03Scope/gif01.png)
 
-作用域链（ Scope Chain ）基本上就是对象之间的“引用链”，包括了该执行上下文中可引用的值和对其他作用域的引用（⛓️：这个上下文中所有可以访问到的值都在这条引用链上）。
+作用域链（ Scope Chain ）基本上就是对象之间的“引用链”，包括了该执行上下文（ execution context ）中可引用的值和对其他作用域的引用（⛓️：这个上下文中所有可以访问到的值都在这条引用链上）。
 
 当执行上下文被创建时，作用域链就被创建了，这意味着它是在运行时（ runtime ）被创建的。
 
-然而，在这篇文章中我不会讨论 Activation Object 和执行上下文（ Execution Context ），让我们只关注作用域。
+然而，在这篇文章中我不会讨论 Activation Object 和执行上下文（ Execution Context ），让我们只关注作用域（ Scope )。
 
 下面的代码中，执行上下文中的键值对（ Key/Value pairs）代表了作用域链对变量的引用。
 
@@ -59,7 +59,7 @@ console.log(getPersonInfo())
 * 变量 `name` 的值为 `Sarah` 
 * 变量 `age` 的值为 `22`
 
-当我们尝试在函数 `getPersonInfo` 中访问变量时，JavaScript 引擎首先在本地作用域链中检查。
+当我们尝试在函数 `getPersonInfo` 中访问变量时，JavaScript 引擎首先在本地作用域链（  local scope chain ）中检查。
 
 ![GIF 03](./illustrations/JSVisual03Scope/gif03.gif)
 
@@ -71,9 +71,9 @@ console.log(getPersonInfo())
 
 ![GIF 04](./illustrations/JSVisual03Scope/gif04.gif)
 
-在全局上下文中，我们声明了变量 `city` ，它的值为 `San Francisco` ，因此有了对变量 `city` 的引用。现在我们拿到了变量的值，函数 `getPersonInfo` 就可以返回字符串 `Sarah is 22 and lives in San Francisco` 🎉
+在全局上下文（ global context ）中，我们声明了变量 `city` ，它的值为 `San Francisco` ，因此有了对变量 `city` 的引用。现在我们拿到了变量的值，函数 `getPersonInfo` 就可以返回字符串 `Sarah is 22 and lives in San Francisco` 🎉
 
-我们可以沿着作用域链往下走，但是不能沿着作用域链往上走。（好吧，这可能会引起混乱，有些人会反过来说上和下的意思。我重新表述一下：你可以向外部作用域查找，但不能向内部作用域查找）。我喜欢把这个过程想象成一个瀑布。
+我们可以沿着作用域链往下走，但是不能沿着作用域链往上走。（好吧，这可能会引起混乱，有些人会反过来理解“上”和“下”的意思。我重新表述一下：你可以向外部作用域查找，但不能向内部作用域查找）。我喜欢把这个过程想象成一个瀑布。
 
 ![GIF 05](./illustrations/JSVisual03Scope/gif05.png)
 
@@ -85,13 +85,13 @@ console.log(getPersonInfo())
 
 ![GIF 07](./illustrations/JSVisual03Scope/gif07.png)
 
-跟之前的代码很相似，只有一点不同：我们在 `getPersonInfo` 函数中声明了变量 `city` ，而不是在全局作用域中声明。而且，我们没有调用函数 `getPersonInfo` ，所以也没有创建本地上下文。最后，我们尝试在全局上下文中访问 `name` ， `age` 和 `city` 的值。
+跟之前的代码很相似，只是有两点不同：我们在 `getPersonInfo` 函数中声明了变量 `city` ，而不是在全局作用域中声明。而且，我们没有调用函数 `getPersonInfo` ，所以也没有创建本地上下文。最后，我们尝试在全局上下文中访问 `name` ， `age` 和 `city` 的值。
 
 ![GIF 08](./illustrations/JSVisual03Scope/gif08.gif)
 
-抛出了错误 `ReferenceError` 。因为无法在全局作用域中找到对变量 `city` 的引用，而且也没有外部作用域可供查询。
+抛出了错误 `ReferenceError` 。因为无法在全局作用域中找到对变量 `city` 的引用，并且此时也没有外部作用域可供查询。
 
-这样，我们就可以使用作用域来保护变量和重用变量名。
+这样，我们就可以使用作用域这种形式来保护变量和重用变量名。
 
 除了全局作用域和本地作用域，还有一种块作用域（ block scope ）。使用 `let` 和 `const` 关键字声明的变量，其作用域的范围是最近的大括号（ `{}` ）。
 
@@ -117,7 +117,7 @@ function checkAge() {
 
 快速回顾一下：
 
-* 我们可以把“作用域链”看作我们在当前上下文中可以访问的值的引用链。
-* 作用域还可以在重用外部作用中定义的变量，但不能使用内部作用域中的变量。
+* 我们可以把“作用域链”看作我们在当前上下文（ current context ）中可以访问的值的引用链。
+* 作用域还可以重用外部作用域中定义的变量，但不能使用内部作用域中的变量。
 
-这就是作用域（链）。关于这一点，还有很多内容可以说，有机会再聊。💕
+这就是作用域（链）。关于这一点，还有很多内容可以说，以后有机会再聊吧。💕
