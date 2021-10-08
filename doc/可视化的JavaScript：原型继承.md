@@ -1,6 +1,12 @@
 # 🎉👨‍👩‍👧‍👧JavaScript Visualized: Prototypal Inheritance
 # 翻译：🎉👨‍👩‍👧‍👧可视化的 JavaScript：原型继承
 
+点击访问：[原文地址](https://dev.to/lydiahallie/javascript-visualized-prototypal-inheritance-47co)
+
+作者：[Lydia Hallie](@lydiahallie)
+
+![GIF 00](./illustrations/JSVisual05Prototypal/gif00.png)
+
 大家有没有想过，为什么我们可以在 String , Array , Object 等对象上使用一些内置的方法，比如 `.length` ， `.split()` ， `.join()` ？我们从未显示地声明过这些方法，它们到底是从何而来？不要说“这是 JavaScript 的巴拉巴拉，没有人知道，它是魔法🧚🏻‍♂️”，实际上都是因为一个叫 **原型继承（ Prototypal Inheritance ）** 的东西。它非常酷，而且你使用它的频率比你意识到的还要多。
 
 我们经常需要创建许多类型相同的对象。想象一下，我们有一个网站，人们可以在上面看各种各样的狗。
