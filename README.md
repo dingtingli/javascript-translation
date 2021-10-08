@@ -11,4 +11,4 @@ JavaScript 文章翻译
 
 5. [🚀⚙️可视化的 JavaScript：引擎](doc/可视化的JavaScript：引擎.md)
 
-6. [🚀⚙️可视化的 JavaScript：原型继承](doc/可视化的JavaScript：原型继承.md)
+6. [🎉👨‍👩‍👧‍👧可视化的 JavaScript：原型继承](doc/可视化的JavaScript：原型继承.md)
