@@ -14,3 +14,5 @@ JavaScript 文章翻译
 6. [🎉👨‍👩‍👧‍👧可视化的 JavaScript：原型继承](doc/可视化的JavaScript：原型继承.md)
 
 7. [💡🎁可视化的 JavaScript：生成器和迭代器](doc/可视化的JavaScript：生成器和迭代器.md)
+
+8. [⭐️🎀可视化的 JavaScript：异步](doc/可视化的JavaScript：异步.md)
