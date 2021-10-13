@@ -15,8 +15,8 @@ JavaScript 文章翻译
 
 7. [⭐️🎀可视化的 JavaScript：异步](doc/可视化的JavaScript：异步.md)
 
-8. [JavaScript 执行上下文：从编译到执行（ Part 1 ）](doc/JavaScript执行上下文01：从编译到执行.md)
+8. [JavaScript 执行上下文 01：从编译到执行](doc/JavaScript执行上下文01：从编译到执行.md)
 
-9. [JavaScript 执行上下文：调用栈和多个执行上下文（ Part 2 ）](doc/JavaScript执行上下文02：调用栈.md)
+9. [JavaScript 执行上下文 02：调用栈和多个执行上下文](doc/JavaScript执行上下文02：调用栈.md)
 
 10. [V8 引擎如何一步一步地运行](doc/V8引擎如何一步一步地运行.md)
