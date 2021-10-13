@@ -1,6 +1,10 @@
 # JavaScript execution context — call stack and multiple execution contexts (part 2)
 # 翻译：JavaScript 执行上下文：调用栈和多个执行上下文（ Part 2 ）
 
+点击访问：[原文地址](https://cabulous.medium.com/javascript-execution-context-part-2-call-stack-and-multiple-execution-contexts-dbe428a94190)
+
+作者：[Carson](https://cabulous.medium.com/)
+
 在[上一篇文章](./JavaScript执行上下文01：从编译到执行.md)中，我们讨论了执行上下文（ execution context ）。这是在编译阶段创建的第一个执行上下文。 
 
 我们称这第一个执行上下文为全局执行上下文（ global execution context ，global EC ）。存储在相应变量环境( variable environment )中的变量成为全局变量（ global variables ）。 

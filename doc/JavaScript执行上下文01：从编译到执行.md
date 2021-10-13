@@ -1,6 +1,10 @@
 # JavaScript execution context — from compiling to execution (part 1) 
 # 翻译：JavaScript 执行上下文：从编译到执行（ Part 1 ）
 
+点击访问：[原文地址](https://medium.com/@cabulous/javascript-execution-context-part-1-from-compiling-to-execution-84c11c0660f5)
+
+作者：[Carson](https://cabulous.medium.com/)
+
 对大多数人来说，JavaScript很神秘。它有着很多自己独特的特点。 
 
 你可能会听说过以下专业术语：
