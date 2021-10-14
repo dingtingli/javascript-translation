@@ -19,4 +19,6 @@ JavaScript 文章翻译
 
 9. [JavaScript 执行上下文 02：调用栈和多个执行上下文](doc/JavaScript执行上下文02：调用栈.md)
 
-10. [V8 引擎如何一步一步地运行](doc/V8引擎如何一步一步地运行.md)
+10. [JavaScript 执行上下文 03：作用域](doc/JavaScript执行上下文03：作用域.md)
+
+11. [V8 引擎如何一步一步地运行](doc/V8引擎如何一步一步地运行.md)
