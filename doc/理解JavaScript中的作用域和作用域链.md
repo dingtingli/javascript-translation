@@ -5,7 +5,7 @@
 
 作者：[Carson](https://medium.com/@Sukhjinder)
 
-作用域和作用域链是 JavaScript 语言和其他编程语言中的基本概念。然而这些概念让许多 JavaScript 开发新手们觉得困惑。这些概念是掌握 JavaScript 的关键。 
+作用域和作用域链是 JavaScript 语言和其他编程语言中的基本概念。然而这些概念让许多 JavaScript 开发新手们觉得困惑。这些概念也是掌握 JavaScript 的关键。 
 
 对这些概念的正确理解，将帮助你写出更好，更高效和简洁的代码。这将反过来帮助你成为一个更好的 JavaScript 开发人员。 
 
@@ -62,7 +62,7 @@ console.log(greeting);
 
 ### 块作用域
 
-ES6 中引入了 `let` 和 `const` 变量，不同于 `var` 变量，它们的作用域是最近的一对大括号。这意味着他们不能被这对大括号外面的代码访问。比如：
+ES6 中引入了 `let` 和 `const` 变量，不同于 `var` 变量，它们的作用域是离它们最近的一对大括号。这意味着它们不能被这对大括号外面的代码访问。比如：
 
 ```javascript
 { 
@@ -240,7 +240,7 @@ functionLexicalEnvironment = {
 
 这里，外部词法环境 `outer` 被设置为 `globalLexicalEnvironment`，因为其外部作用域为全局作用域。 
 
-之后，JavaScript 引擎执行语句 `console.log(``${greeting} ${name}``)` 。 
+之后，JavaScript 引擎执行语句 ``console.log(`${greeting} ${name}`)`` 。 
 
 JavaScript 引擎尝试在函数词法环境中找到变量 `greeting` 和 `name` 。它在当前此法环境中找到了变量 `name` ，但是无法在当前的词法环境中找到变量 `greeting` 。 
 
