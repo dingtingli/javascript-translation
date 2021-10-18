@@ -30,3 +30,5 @@ JavaScript 文章翻译
 14. [理解 JavaScript 02：作用域，作用域链](doc/理解JavaScript中的作用域和作用域链.md)
 
 15. [理解 JavaScript 03：闭包](doc/理解JavaScript中的闭包.md)
+
+16. [理解 JavaScript 04：提升](doc/理解JavaScript中的提升.md)
