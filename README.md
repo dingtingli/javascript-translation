@@ -28,3 +28,5 @@ JavaScript 文章翻译
 13. [理解 JavaScript 01：执行上下文，调用栈](doc/理解JavaScript中的执行上下文和调用栈.md)
 
 14. [理解 JavaScript 02：作用域，作用域链](doc/理解JavaScript中的作用域和作用域链.md)
+
+15. [理解 JavaScript 03：闭包](doc/理解JavaScript中的闭包.md)
