@@ -36,3 +36,5 @@ JavaScript 文章翻译
 17. [探索 V8 中的闭包](doc/探索V8中的闭包.md)
 
 18. [JavaScript 基础：执行上下文和词法环境](doc/JavaScript基础：执行上下文和词法环境.md)
+
+19. [JavaScript 一门编译型语言](doc/JavaScript一门编译型语言.md)
