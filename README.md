@@ -32,3 +32,5 @@ JavaScript 文章翻译
 15. [理解 JavaScript 03：闭包](doc/理解JavaScript03：闭包.md)
 
 16. [理解 JavaScript 04：提升](doc/理解JavaScript04：提升.md)
+
+17. [探索 V8 中的闭包](doc/探索V8中的闭包.md)
