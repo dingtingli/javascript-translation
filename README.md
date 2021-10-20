@@ -33,8 +33,10 @@ JavaScript 文章翻译
 
 16. [理解 JavaScript 04：提升](doc/理解JavaScript04：提升.md)
 
-17. [探索 V8 中的闭包](doc/探索V8中的闭包.md)
+17. [JavaScript 基础：执行上下文和词法环境](doc/JavaScript基础：执行上下文和词法环境.md)
 
-18. [JavaScript 基础：执行上下文和词法环境](doc/JavaScript基础：执行上下文和词法环境.md)
+18. [JavaScript 一门编译型语言](doc/JavaScript一门编译型语言.md)
 
-19. [JavaScript 一门编译型语言](doc/JavaScript一门编译型语言.md)
+19. [JavaScript 中闭包在 Heap 中的表示](doc/JavaScriptHeap中的闭包.md)
+
+20. [探索 V8 中的闭包](doc/探索V8中的闭包.md)
