@@ -40,3 +40,5 @@ JavaScript 文章翻译
 19. [JavaScript 中闭包在 Heap 中的表示](doc/JavaScriptHeap中的闭包.md)
 
 20. [探索 V8 中的闭包](doc/探索V8中的闭包.md)
+
+21. [V8 中的内存管理](doc/V8引擎的内存管理.md)
