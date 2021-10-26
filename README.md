@@ -35,10 +35,10 @@ JavaScript 文章翻译
 
 17. [JavaScript 基础：执行上下文和词法环境](doc/JavaScript基础：执行上下文和词法环境.md)
 
-18. [JavaScript 一门编译型语言](doc/JavaScript一门编译型语言.md)
+18. [JavaScript 中闭包在 Heap 中的表示](doc/JavaScriptHeap中的闭包.md)
 
-19. [JavaScript 中闭包在 Heap 中的表示](doc/JavaScriptHeap中的闭包.md)
+19. [探索 V8 中的闭包](doc/探索V8中的闭包.md)
 
-20. [探索 V8 中的闭包](doc/探索V8中的闭包.md)
+20. [V8 中的内存管理](doc/V8引擎的内存管理.md)
 
-21. [V8 中的内存管理](doc/V8引擎的内存管理.md)
+21. [JavaScript 一门编译型语言](doc/JavaScript一门编译型语言.md)
