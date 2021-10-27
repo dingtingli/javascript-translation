@@ -125,7 +125,7 @@ const myPet = new Chihuahua("Max");
 
 ![GIF 10](./illustrations/JSVisual05Prototypal/gif10.gif)
 
-因为 `Chihuhua.prototype` 有 `smallBark` 函数， `Dog.prototype` 有 `Bark` 函数，所以我们可以在 `myPet` 上同时访问 `smallBark` 和 `Bark` 。
+因为 `Chihuhua.prototype` 有 `smallBark` 函数， `Dog.prototype` 有 `bark` 函数，所以我们可以在 `myPet` 上同时访问 `smallBark` 和 `bark` 。
 
 现在我们可以想到，原型链不可能永远延续下去。最终，会有一个对象的 `prototype` 等于 `null`，它就是`Object.prototype` 。如果我们尝试访问一个在自身和原型链上都查找不到的属性时，最终会返回 `undefined` 。
 
