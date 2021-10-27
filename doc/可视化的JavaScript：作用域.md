@@ -50,7 +50,7 @@ console.log(getPersonInfo())
 
 ![GIF 02](./illustrations/JSVisual03Scope/gif02.png)
 
-全局执行上下文（ global execution context ）中的作用域链引用了 3 个变量：
+全局执行上下文（ global execution context ）中的作用域中引用了 3 个变量：
 * 变量 `name` 的值为 `Lydia` 
 * 变量 `age` 的值为 `21` 
 * 变量 `city` 的值为 `San Francisco` 
