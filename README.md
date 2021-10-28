@@ -35,7 +35,7 @@ JavaScript 文章翻译
 
 17. [JavaScript 基础：执行上下文和词法环境](doc/JavaScript基础：执行上下文和词法环境.md)
 
-18. [JavaScript 中闭包在 Heap 中的表示](doc/JavaScriptHeap中的闭包.md)
+18. [JavaScript 闭包在 Heap 中的可视化表示](doc/JavaScriptHeap中的闭包.md)
 
 19. [探索 V8 中的闭包](doc/探索V8中的闭包.md)
 
