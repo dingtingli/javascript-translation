@@ -7,9 +7,9 @@
 
 ![GIF 00](./illustrations/JSVisual06Generator/gif00.png)
 
-ES6 引入了一个很酷的东西，叫做生成器函数（ gengrator function ）🎉 。每当我问别人有关生成器函数的问题时，回答基本都是“我曾经看过一次，很困惑，就没有再看了”，“我读过很多关于生成器函数的文章，但还是不明白”，“我了解这个东西，但是为什么有人会用它”🤔 也许这只是我和自己的对话，因为我曾经很长一段时间都是这么想的！但是，生成器函数真的非常酷。
+ES6 引入了一个很酷的东西，叫做生成器函数（gengrator function）🎉 。每当我问别人有关生成器函数的问题时，回答基本都是“我曾经看过一次，很困惑，就没有再看了”，“我读过很多关于生成器函数的文章，但还是不明白”，“我了解这个东西，但是为什么有人会用它”🤔 也许这只是我和自己的对话，因为我曾经很长一段时间都是这么想的！但是，生成器函数真的非常酷。
 
-那么，什么是生成器函数（ gengrator function ）呢？让我们先来看一个常规的、老派函数👵🏼。
+那么，什么是生成器函数（gengrator function）呢？让我们先来看一个常规的、老派函数👵🏼。
 
 ```javascript
 function normalFunction(){
@@ -26,7 +26,7 @@ function normalFunction(){
 
 “但是，为什么要我浪费5秒种时间看这么一个普通无聊的函数？”这是一个好问题。普通函数遵循着一种称为 运行-完成 （run to completoin）模式：当我们调用一个函数时，它会一直运行直到完成（除非某处报错）。我们不能随意地在中间某个地方暂停一个函数。
 
-现在最酷的部分来了：生成器函数（ gengrator function ）并不遵循运行-完成 （ run to completoin ）模式🤯 。这是否意味着我们可以在生成器函数执行的过程中随意地暂停它？嗯，算是吧。让我们来看看什么是生成器函数，以及我们如何使用它。
+现在最酷的部分来了：生成器函数（gengrator function）并不遵循运行-完成 （run to completoin）模式🤯 。这是否意味着我们可以在生成器函数执行的过程中随意地暂停它？嗯，算是吧。让我们来看看什么是生成器函数，以及我们如何使用它。
 
 我们通过在 `function` 关键字后面写一个 `*` 来创建生成器函数。
 
@@ -36,12 +36,12 @@ function* generatorFunction() {}
 
 但是这并不是我们使用生成器函数所要做的一切。与普通函数相比，生成器函数实际上以完全不同的方式工作：
 
-* 调用一个生成器函数会返回一个生成器对象（ generator object ），这个对象是一个迭代器（ iterator ）。
+* 调用一个生成器函数会返回一个生成器对象（generator object），这个对象是一个迭代器（iterator）。
 * 我们可以在生成器函数中使用 `yield` 关键字来“暂停”执行。
 
 但这到底是什么意思？
 
-让我们先来看看第一条：调用生成器函数（ gengrator function ）会返回一个生成器对象（ generator object ）。
+让我们先来看看第一条：调用生成器函数（gengrator function）会返回一个生成器对象（generator object）。
 
 当我们调用一个普通函数的时候，函数体会被执行，最终返回一个值。然而，当我们调用一个生成器函数时，返回一个生成器对象！让我们来看看把生成器对象打印出来是个什么样子。
 
@@ -65,13 +65,13 @@ function* genFunc(){
 
 `yield` 关键字在这里是做什么的？当遇到 `yield` 时，函数的执行会被“暂停”。更有意思的是，当我们下次运行函数的时候，它记住了上次暂停的位置，然后从那里继续运行。😃下面的步骤基本就是这个生成器函数运行是发生的事情（别担心，后面还会有动画）。
 
-1. 第一次运行时，它会在第一行“暂停”，并且生成（ yields ）字符串 '✨' 。
+1. 第一次运行时，它会在第一行“暂停”，并且生成（yields）字符串 '✨' 。
 2. 第二次运行时，它从上一次 `yield` 关键字所在的那一行开始，一直向下运行，直到遇到第二个 `yield` 关键字，并生成字符串 '💕' 。
 3. 第三次运行，从上一次 `yield` 关键字所在的那一行开始，一直向下运行，直到遇到 `return`，然后返回 `Done！` 。
 
 但是……我们在之前看到过，如果调用生成器函数，返回的是一个生成器对象，那么我们应该怎么调用这个函数呢🤔？这就是生成器对象发挥作用的地方了！
 
-生成器对象（在原型链上）包含一个 `next` 方法。可以用这个方法遍历（ iterate ）生成器对象。然而，为了在生成（ yield ）一个值后记住它先前所处的状态，我们需要将生成器对象分配给一个变量。例子中我们称这个变量为genObj（ generatorObject 的缩写）。
+生成器对象（在原型链上）包含一个 `next` 方法。可以用这个方法遍历（iterate）生成器对象。然而，为了在生成（yield）一个值后记住它先前所处的状态，我们需要将生成器对象分配给一个变量。例子中我们称这个变量为genObj（generatorObject 的缩写）。
 
 ![GIF 03](./illustrations/JSVisual06Generator/gif03.gif)
 
@@ -79,13 +79,13 @@ function* genFunc(){
 
 ![GIF 04](./illustrations/JSVisual06Generator/gif04.gif)
 
-生成器函数一直运行，直到遇到第一个 `yield` 关键字，恰巧在第一行。它生成（ yield ）了一个包含 value 和 done 属性的对象。
+生成器函数一直运行，直到遇到第一个 `yield` 关键字，恰巧在第一行。它生成（yield）了一个包含 value 和 done 属性的对象。
 
 ```javascript
 {value:..., done:...}
 ```
-value 属性等于我们生成（ yield ）的值。
-done 属性是一个布尔类型的值，只有在生成器函数 return （不是 yield 😊） 一个值时才设置成 true 。
+value 属性等于我们生成（yield）的值。
+done 属性是一个布尔类型的值，只有在生成器函数 return （不是 yield 😊） 一个值时才设置成 true。
 
 我们停止了对生成器对象的遍历，这让函数看起来像是暂停了一样！多酷啊。让我们再次调用 `next()` 方法。😃
 
@@ -103,11 +103,11 @@ done 属性非常重要。我们只能对生成器对象进行一次遍历。那
 
 ![GIF 07](./illustrations/JSVisual06Generator/gif07.gif)
 
-它只会永远返回 `undefined` 。如果我们希望再次遍历它，需要再创建一个新的生成器对象。
+它只会永远返回 `undefined`。如果我们希望再次遍历它，需要再创建一个新的生成器对象。
 
 ---
 
-就像我们刚才看到的那样，生成器函数返回一个迭代器（ iterator ）（即生成器对象）。但…… iterator ？这是否意味着我们可以在返回对象上使用 for 循环和扩展语法（ spread syntax ）？是这样的🤩。
+就像我们刚才看到的那样，生成器函数返回一个迭代器（iterator）（即生成器对象）。但…… iterator ？这是否意味着我们可以在返回对象上使用 for 循环和扩展语法（spread syntax）？是这样的🤩。
 
 让我们尝试用 `[...]` 将返回值扩展到一个数组中。
 
@@ -153,7 +153,7 @@ function* generatorFunction() {
 const generatorObject = generatorFunction()
 ```
 
-`array` , `string` 和 `generatorObject` 都是迭代器。我们来看一下他们 [Symbol.iterator] 属性的值。
+`array`, `string` 和 `generatorObject` 都是迭代器。我们来看一下他们 [Symbol.iterator] 属性的值。
 
 ![GIF 10](./illustrations/JSVisual06Generator/gif10.gif)
 
@@ -190,7 +190,7 @@ en..让我们来试一下。
 
 ![GIF 13](./illustrations/JSVisual06Generator/gif13.gif)
 
-糟糕， `Object.keys(this)` 本身就是一个数组，所有生成（ yield ）的值也是一个数组。然后我们将生成的这个数组扩展到另外一个数组中，结果就得到了一个嵌套数组 `[['name']]` 。我们并不想要这样的结果，只希望得到单独由key组成的数组，就像这样 `['name']` 。
+糟糕， `Object.keys(this)` 本身就是一个数组，所有生成（yield）的值也是一个数组。然后我们将生成的这个数组扩展到另外一个数组中，结果就得到了一个嵌套数组 `[['name']]`。我们并不想要这样的结果，只希望得到单独由key组成的数组，就像这样 `['name']`。
 
 好消息！🥳我们可以使用 `yield*` 关键字从生成器中的迭代器中生产单独的值，所以 `yield` 后面带了一个星号。
 
@@ -210,9 +210,9 @@ const genObj = genFunc()
 
 ![GIF 14](./illustrations/JSVisual06Generator/gif14.gif)
 
-在继续迭代 genObj 之前，被委托的数组中的每个值都被生成（ yield ）了。
+在继续迭代 genObj 之前，被委托的数组中的每个值都被生成（yield）了。
 
-这正是我们所需要的，以便于单独获得所有对象的 key 。
+这正是我们所需要的，以便于单独获得所有对象的 key。
 
 ```javascript
 object[Symbol.iterator] = function* (){
@@ -224,7 +224,7 @@ object[Symbol.iterator] = function* (){
 
 ---
 
-生成器函数的另外一种用法，是可以在某种程度上（ sort of ）当作观察者函数（  observer functions ）来使用。一个生成器函数可以等待传入的数据，只有当这些数据被传入时，才会对其进行处理。
+生成器函数的另外一种用法，是可以在某种程度上（sort of）当作观察者函数（observer functions）来使用。一个生成器函数可以等待传入的数据，只有当这些数据被传入时，才会对其进行处理。
 
 ```javascript
 function* generatorFunction() {
@@ -234,25 +234,25 @@ function* generatorFunction() {
 }
 ```
 
-这个例子和之前最大的区别是，我们不仅使用了 `yield` ，而且将其赋值给了 `second` ，并生成了一个值 “First!” ，这个值就是第一次调用 `next` 方法生成的。(赋给 `second` 并不是 `First!`，后面有动画解释)
+这个例子和之前最大的区别是，我们不仅使用了 `yield`，而且将其赋值给了 `second`，并生成了一个值 “First!” ，这个值就是第一次调用 `next` 方法生成的。(赋给 `second` 并不是 `First!`，后面有动画解释)
 
 让我们看看第一次在迭代器上调用 `next` 方法时会发生什么？
 
 ![GIF 16](./illustrations/JSVisual06Generator/gif16.gif)
 
-在第一行遇到 `yield` ，并生成了 “First!” 。那么变量 `second` 的值到底是什么？
+在第一行遇到 `yield`，并生成了 “First!” 。那么变量 `second` 的值到底是什么？
 
 实际上是我们下次调用 `next` 方法传递过来的值。这次我们将字符串 `I like JavaScript` 传给 `next()` 方法试试。
 
 ![GIF 17](./illustrations/JSVisual06Generator/gif17.gif)
 
-这里需要注意的是，在第一次调用 `next()` 方法时，没有跟踪任何输入。我们只是通过第一次调用来启动观察者（ observer ）。生成器函数会等待我们的输入，并可能处理我们传递给 `next` 方法的值。
+这里需要注意的是，在第一次调用 `next()` 方法时，没有跟踪任何输入。我们只是通过第一次调用来启动观察者（observer）。生成器函数会等待我们的输入，并可能处理我们传递给 `next` 方法的值。
 
 ---
 
 那么，我们为什么要使用生成器函数呢？
 
-生成器函数最大的一个优点就是惰性求值（ lazily evaluated ）。这意味着我们在调用 `next` 方法返回的值，只有在我们明确要求后才会计算。普通函数不具有这个功能：所有值都直接为我们生成，以防将来需要使用。
+生成器函数最大的一个优点就是惰性求值（lazily evaluated）。这意味着我们在调用 `next` 方法返回的值，只有在我们明确要求后才会计算。普通函数不具有这个功能：所有值都直接为我们生成，以防将来需要使用。
 
 ![GIF 18](./illustrations/JSVisual06Generator/gif18.gif)
 
@@ -287,13 +287,13 @@ const bookClubs = [
 ]
 ```
 
-现在，我们希望寻找一本 id 为 ey812 的书。为了找到它，我们可能会使用一个嵌套的 for 或着 forEach ，但是这意味着我们需要遍历数据，甚至是在找到了我们要找的俱乐部成员之后。
+现在，我们希望寻找一本 id 为 ey812 的书。为了找到它，我们可能会使用一个嵌套的 for 或着 forEach，但是这意味着我们需要遍历数据，甚至是在找到了我们要找的俱乐部成员之后。
 
 译注：不是很清楚作者的表达。找到该书后可以使用 break 跳出循环，不需要再遍历下面的数据。
 
 生成器函数厉害之处在于，除非我们明确告知，否则它不会继续运行。这意味着我们可以评估每次返回的结果，如何返回的是我们要找的内容，我们就不会再调用 `next` 方法。让我们看看如何实现。
 
-首先，我们创建一个生成器函数，遍历俱乐部成员正在阅读的书籍数组 books 。我们将每个成员的 books 数据传给函数，进行遍历，并生成（ yield ）每一个本书。
+首先，我们创建一个生成器函数，遍历俱乐部成员正在阅读的书籍数组 books 。我们将每个成员的 books 数据传给函数，进行遍历，并生成（yield）每一个本书。
 
 ```javascript
 function* iterateBooks(books) {
@@ -303,7 +303,7 @@ function* iterateBooks(books) {
 }
 ```
 
-很好！现在我们要再创建一个生成器函数，对 clubMembers 数组进行遍历。我们并不关心俱乐部成员本身，只需要遍历他们的 books 。在 iterateMembers 生成器函数中，我们委托上面的 iterateBooks 来生成（ yield ）成员的书籍。
+很好！现在我们要再创建一个生成器函数，对 clubMembers 数组进行遍历。我们并不关心俱乐部成员本身，只需要遍历他们的 books。在 iterateMembers 生成器函数中，我们委托上面的 iterateBooks 来生成（yield）成员的书籍。
 
 ```javascript
 function* iterateMembers(members){
@@ -337,7 +337,7 @@ const it = iterateBookClubs(bookClubs);
 
 很好！我们没有遍历所有数据就找到了想要的书。当然每次手动调用 `next` 方法不是很有效率，所以我们写个函数来替代吧。
 
-给这个函数传一个 id ，这是我们要找的书的 id 。如果这次返回值的 value.id 就是我们要找到 id ，那么就返回这个 value 。否则，就再调用 `next` 方法。
+给这个函数传一个 id，这是我们要找的书的 id。如果这次返回值的 value.id 就是我们要找到 id，那么就返回这个 value。否则，就再调用 `next` 方法。
 
 ```javascript
 function findBook(id) {
