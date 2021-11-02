@@ -100,7 +100,7 @@ greet();
 
 这里有三个作用域彼此嵌套。首先，最里面块作用域（因为有 `let` 变量）嵌套在函数作用域中，其次，函数作用域嵌套在全局作用域中。
 
-## 词法作用域（ Lexical Scope ）
+## 词法作用域（Lexical Scope）
 
 词法作用域（也被称为静态作用域）字面上看是指在词法化（编译）时而不是在运行时确定的作用域。比如：
 
@@ -119,9 +119,9 @@ function log() {
 // Prints 42 
 log(); 
 ```
-不管从哪里调用 `printNumber()` 函数，这里的 `console.log(number)` 将会输出 `42` 。这跟动态作用域的语言不一样，在动态作用域中，`console.log(number)` 将会根据函数 `printNumber()` 的调用位置来确定 `number` 的值。 
+不管从哪里调用 `printNumber()` 函数，这里的 `console.log(number)` 将会输出 `42`。这跟动态作用域的语言不一样，在动态作用域中，`console.log(number)` 将会根据函数 `printNumber()` 的调用位置来确定 `number` 的值。 
 
-如果上面的代码是用一种支持动态作用域的语言来编写，那么 `console.log(number)` 将会输出 `54` 。 
+如果上面的代码是用一种支持动态作用域的语言来编写，那么 `console.log(number)` 将会输出 `54`。 
 
 使用词法作用域，我们可以通过查看源代码来确定变量的作用域。然而，在动态作用域的示例中，在代码执行之前，作用域是无法确定的。 
 
@@ -240,11 +240,11 @@ functionLexicalEnvironment = {
 
 这里，外部词法环境 `outer` 被设置为 `globalLexicalEnvironment`，因为其外部作用域为全局作用域。 
 
-之后，JavaScript 引擎执行语句 ``console.log(`${greeting} ${name}`)`` 。 
+之后，JavaScript 引擎执行语句 ``console.log(`${greeting} ${name}`)``。 
 
-JavaScript 引擎尝试在函数词法环境中找到变量 `greeting` 和 `name` 。它在当前此法环境中找到了变量 `name` ，但是无法在当前的词法环境中找到变量 `greeting` 。 
+JavaScript 引擎尝试在函数词法环境中找到变量 `greeting` 和 `name`。它在当前此法环境中找到了变量 `name`，但是无法在当前的词法环境中找到变量 `greeting`。 
 
-所以，引擎在外部词法环境（由 `outer` 属性定义，示例中为全局词法环境）中找到变量 `greeting` 。 
+所以，引擎在外部词法环境（由 `outer` 属性定义，示例中为全局词法环境）中找到变量 `greeting`。 
 
 接下来，JavaScript 引擎执行块中的代码。所以它为块创建一个新的词法环境。比如：
 
@@ -270,4 +270,4 @@ JavaScript 使用词法环境，意味着变量的作用域是在编译时确定
 
 作用域和作用域链是 JavaScript 的基本概念，每个 JavaScript 开发人员都应该理解。对这些概念有很好的理解会帮助你成为一个更有效率和更好的 JavaScript 开发人员。 
 
-如果你觉得这篇文章对你有帮助，请点赞👏并在下面随意留言，我非常乐意与你交流。 
+如果你觉得这篇文章对你有帮助，请点赞👏并在下面随意留言，我非常乐意与你交流。
