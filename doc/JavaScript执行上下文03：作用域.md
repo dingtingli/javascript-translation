@@ -1,5 +1,5 @@
 # JavaScript execution context — lexical environment and block scope (part 3)
-# 翻译：JavaScript 执行上下文：词法环境和块作用域（ Part 3 ）
+# 翻译：JavaScript 执行上下文：词法环境和块作用域（Part 3）
 
 点击访问：[原文地址](https://cabulous.medium.com/javascript-execution-context-lexical-environment-and-block-scope-part-3-fc2551c92ce0)
 
@@ -7,9 +7,9 @@
 
 自从 ES6 更新后，JavaScript 有三种作用域类型： 
 
-* 全局作用域（ Global Scope ）
-* 函数作用域（ Function Scope ）
-* 块作用域（ Block Scope ）
+* 全局作用域（Global Scope）
+* 函数作用域（Function Scope）
+* 块作用域（Block Scope）
 
 从执行上下文的角度来看，什么是作用域？ 
 
@@ -38,7 +38,7 @@ console.log('Global apple:', apple); // Global apple: banana
 
 在上面这段代码中，只有一个全局执行上下文和全局变量环境。 
 
-第二个变量 `apple` 的赋值覆盖了之前的操作。在执行结束时，只有一个叫 `apple` 变量，其持有的值是 `banana` 。 
+第二个变量 `apple` 的赋值覆盖了之前的操作。在执行结束时，只有一个叫 `apple` 变量，其持有的值是 `banana`。 
 
 ![PNG 02](./illustrations/JSExecutionContext03/png02.png)
 
@@ -61,11 +61,11 @@ if (true) {
 console.log('Global apple:', apple); // Global apple: apple
 ```
 
-控制台中输出了两个不同变量 `apple` 的值。第一个变量 `apple` 的值是 `apple` ，`if` 块中变量 `apple` 的值是 `banana` 。 
+控制台中输出了两个不同变量 `apple` 的值。第一个变量 `apple` 的值是 `apple`，`if` 块中变量 `apple` 的值是 `banana`。 
 
 怎么会有两个同名的变量呢？ 
 
-## 词法环境 （ Lexical Environment ）
+## 词法环境 （Lexical Environment）
 
 让我们来看看编译和执行这两个阶段究竟发生了什么，来解密上面的现象是如何实现的。 
 
@@ -78,21 +78,21 @@ console.log('Global apple:', apple); // Global apple: apple
 * 它是用 let 创建的变量
 * 它在块作用域中 
 
-接下来，执行阶段开始了。第一个 `apple` 变量被赋值为 `apple` 。 
+接下来，执行阶段开始了。第一个 `apple` 变量被赋值为 `apple`。 
 
 ![PNG 04](./illustrations/JSExecutionContext03/png04.png)
 
-当读到 `if` 代码块时，发生了嵌套的编译阶段操作。第二个 `apple` 变量被创建，值 `undefined` （译注：此处应该是 `unintialized` ）。
+当读到 `if` 代码块时，发生了嵌套的编译阶段操作。第二个 `apple` 变量被创建，值 `undefined`（译注：此处应该是 `unintialized`）。
 
 这个变量并没有在变量环境中创建，而是被添加到了词法环境中。 
 
 ![PNG 05](./illustrations/JSExecutionContext03/png05.png)
 
-很快，`banana` 被赋给词法环境中的变量 `apple` 。
+很快，`banana` 被赋给词法环境中的变量 `apple`。
 
 ![PNG 06](./illustrations/JSExecutionContext03/png06.png)
 
-现在，我们在两个环境中有了两个名称相同的变量。这就是 JavaScript 引擎处理 `let` 的方式，并且还向后兼容了 `var` 。
+现在，我们在两个环境中有了两个名称相同的变量。这就是 JavaScript 引擎处理 `let` 的方式，并且还向后兼容了 `var`。
 
 ## 词法环境中的作用域栈
 
@@ -115,11 +115,11 @@ console.log(grape);
 console.log(orange);
 ```
 
-在编译阶段，变量 `apple`和 `grape` 在变量环境中被初始化为 `undefined` 。这里变量 `grape` 的初始化被提升。同时词法环境中创建了变量 `banana` （值为 `unintialized` ）。 
+在编译阶段，变量 `apple`和 `grape` 在变量环境中被初始化为 `undefined`。这里变量 `grape` 的初始化被提升。同时词法环境中创建了变量 `banana`（值为 `unintialized`）。 
 
 ![PNG 07](./illustrations/JSExecutionContext03/png07.jpeg)
 
-执行阶段开始，变量 `apple`被赋值为 `global apple` ，而变量 `banana` 被赋值为 `global banana` 。
+执行阶段开始，变量 `apple` 被赋值为 `global apple`，而变量 `banana` 被赋值为 `global banana`。
 
 
 ![PNG 08](./illustrations/JSExecutionContext03/png08.png)
@@ -132,7 +132,7 @@ console.log(orange);
 
 ![PNG 09](./illustrations/JSExecutionContext03/png09.png)
 
-在这里，变量 `banana` 和变量 `orange` 处在一个独立的作用域中，初始值为 `undefined` （译注：此处应为`unintialized`） 。 
+在这里，变量 `banana` 和变量 `orange` 处在一个独立的作用域中，初始值为 `undefined` （译注：此处应为`unintialized`）。 
 
 ![PNG 10](./illustrations/JSExecutionContext03/png10.png)
 
@@ -142,11 +142,11 @@ console.log(orange);
 
 最后一句赋值语句执行完成后，所以的变量都准备就绪。 
 
-当输出第一个变量时，JavaScript 引擎首先在词法环境中从上到下寻找变量 `apple` 。然后再检查全局变量环境，并找到了变量 `apple`，然后输出 `global apple` 。
+当输出第一个变量时，JavaScript 引擎首先在词法环境中从上到下寻找变量 `apple`。然后再检查全局变量环境，并找到了变量 `apple`，然后输出 `global apple`。
 
 ![PNG 12](./illustrations/JSExecutionContext03/png12.png)
 
-当查找变量 `banana` 时，JavaScript 引擎遵循同样的步骤，最终在词法环境的顶端找到变量 `banana` ，然后输出 `block banana` 。
+当查找变量 `banana` 时，JavaScript 引擎遵循同样的步骤，最终在词法环境的顶端找到变量 `banana`，然后输出 `block banana`。
 
 ![PNG 13](./illustrations/JSExecutionContext03/png13.png)
 
@@ -154,13 +154,13 @@ console.log(orange);
 
 ![PNG 14](./illustrations/JSExecutionContext03/png14.png)
 
-脚本继续执行。JavaScript 引擎在词法环境中找到了变量 `banana` ，在全局变量环境中找到了变量 `grape` ，并相应地输出 `global banana` 和 `global grape` 。 
+脚本继续执行。JavaScript 引擎在词法环境中找到了变量 `banana`，在全局变量环境中找到了变量 `grape`，并相应地输出 `global banana` 和 `global grape`。 
 
 ![PNG 15](./illustrations/JSExecutionContext03/png15.png)
 
 ![PNG 16](./illustrations/JSExecutionContext03/png16.png)
 
-当脚本执行到搜索变量 `orange` 时，这个变量此时并不存在，因为它存在的词法作用域已经被删除了。这时候将抛出一个错误 `orange is not defined` 。
+当脚本执行到搜索变量 `orange` 时，这个变量此时并不存在，因为它存在的词法作用域已经被删除了。这时候将抛出一个错误 `orange is not defined`。
 
 ![PNG 17](./illustrations/JSExecutionContext03/png17.png)
 
@@ -168,13 +168,13 @@ console.log(orange);
 
 除了作用域之外，还有其他与 `let` 和 `const` 相关的问题吗？ 
 
-## 创建（ creation ）、初始化（ initializatoin ）和赋值（ assignment ）的小技巧 
+## 创建（creation）、初始化（initializatoin）和赋值（assignment）的小技巧 
 
 从编译到执行，一个变量要经历三个阶段： 
 
-1. 创建（ Creation ）
-2. 初始化（ Initialization ）
-3. 赋值（ Assignment ）
+1. 创建（Creation）
+2. 初始化（Initialization）
+3. 赋值（Assignment）
 
 ```javascript
 let apple = 'apple';
@@ -186,9 +186,9 @@ let apple = 'apple';
 
 ```
 
-上面这段代码最终会输出什么？`apple` 还是 `banana` ？ 
+上面这段代码最终会输出什么？`apple` 还是 `banana`？ 
 
-令人奇怪的是，会输出一个错误 `Cannot access apple before initialization.` 。 
+令人奇怪的是，会输出一个错误 `Cannot access apple before initialization.`。 
 
 这个错误与提升有关。 
 
@@ -200,7 +200,7 @@ let apple = 'apple';
 
 * 如果你试图在创建之前访问变量，你会看到错误“[variable name] is not defined.” 
 * 如果你希望在初始化之前访问变量，你会看到错误“Cannot access [variable name] before initialization.” 
-* 如果你在赋值之前使用一个变量，你会看到 `undefined` 。 
+* 如果你在赋值之前使用一个变量，你会看到 `undefined`。 
 
 你需要知道的关于作用域和词法环境的所有内容就是这些。
 

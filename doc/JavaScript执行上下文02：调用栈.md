@@ -1,13 +1,13 @@
 # JavaScript execution context — call stack and multiple execution contexts (part 2)
-# 翻译：JavaScript 执行上下文：调用栈和多个执行上下文（ Part 2 ）
+# 翻译：JavaScript 执行上下文：调用栈和多个执行上下文（Part 2）
 
 点击访问：[原文地址](https://cabulous.medium.com/javascript-execution-context-part-2-call-stack-and-multiple-execution-contexts-dbe428a94190)
 
 作者：[Carson](https://cabulous.medium.com/)
 
-在[上一篇文章](./JavaScript执行上下文01：从编译到执行.md)中，我们讨论了执行上下文（ execution context ）。这是在编译阶段创建的第一个执行上下文。 
+在[上一篇文章](./JavaScript执行上下文01：从编译到执行.md)中，我们讨论了执行上下文（execution context）。这是在编译阶段创建的第一个执行上下文。 
 
-我们称这第一个执行上下文为全局执行上下文（ global execution context ，global EC ）。存储在相应变量环境( variable environment )中的变量成为全局变量（ global variables ）。 
+我们称这第一个执行上下文为全局执行上下文（global execution context ，global EC）。存储在相应变量环境(variable environment)中的变量成为全局变量（global variables）。 
 
 ![PNG 01](./illustrations/JSExecutionContext02/png01.png)
 
@@ -38,7 +38,7 @@ console.log(appleTotal);
 
 ![PNG 02](./illustrations/JSExecutionContext02/png02.png)
 
-在变量环境中，我们看到了变量 `apple` 、`appleTotal` 和函数``total` 。然后编译阶段结束，执行阶段开始。 
+在变量环境中，我们看到了变量 `apple` 、`appleTotal` 和函数``total`。然后编译阶段结束，执行阶段开始。 
 
 ![PNG 03](./illustrations/JSExecutionContext02/png03.png)
 
@@ -50,19 +50,19 @@ console.log(appleTotal);
 
 JavaScript 引擎创建了一个新的执行上下文—— total 执行上下文，并且将其放到堆的顶端，全局执行上下文的上面。 
 
-我们注意到执行上下文是以栈（ Stack ）这种数据结构进行存储的。 
+我们注意到执行上下文是以栈（Stack）这种数据结构进行存储的。 
 
-栈（Stack）特点是：后进先出（ LIFO ）。这是我们在这个机制中唯一需要关心的特点。
+栈（Stack）特点是：后进先出（LIFO）。这是我们在这个机制中唯一需要关心的特点。
 
 ![PNG 05](./illustrations/JSExecutionContext02/png05.png)
 
-和全局执行上下文一样，total 执行上下文在编译阶段存在一个变量环境，并且有一个值 `undefined` 的变量 `price` 。 
+和全局执行上下文一样，total 执行上下文在编译阶段存在一个变量环境，并且有一个值 `undefined` 的变量 `price`。 
 
 ![PNG 06](./illustrations/JSExecutionContext02/png06.png)
 
-接下来，在 total 执行上下文中，执行阶段开始了。变量 `price` 更新为数字 `2` 。 
+接下来，在 total 执行上下文中，执行阶段开始了。变量 `price` 更新为数字 `2`。 
 
-然后，该函数在 total 执行上下文中找到变量 `price`，在全局执行上下文中找到变量 `apple` 。
+然后，该函数在 total 执行上下文中找到变量 `price`，在全局执行上下文中找到变量 `apple`。
 
 找到两个变量后，返回计算结果。 
 
@@ -87,11 +87,11 @@ total 执行上下文是最后一个进入栈的，所以它也第一个离开�
 * 所有执行上下文都在一个栈结构中进行管理，后进先出。 
 * 只要函数被调用，编译和执行这两个阶段就会发生。 
 
-根据执行上下文这种操作方式，我们将这个栈结构称为调用栈（ Call Stack ）。
+根据执行上下文这种操作方式，我们将这个栈结构称为调用栈（Call Stack）。
 
 ## 在浏览器中检查 JavaScript 代码的调用栈
 
-现在的浏览器，很容易在它的开发工具中检查调用栈。这里以Chrome为例。 
+现在的浏览器，很容易在它的开发工具中检查调用栈。这里以 Chrome 为例。 
 
 要检查调用栈，我们需要准备：
 1. 一个 HTML 文件 
@@ -115,13 +115,13 @@ total 执行上下文是最后一个进入栈的，所以它也第一个离开�
 
 ![PNG 09](./illustrations/JSExecutionContext02/png09.png)
 
-在 Chrome 中运行HTML文件，并打开开发工具中的 Sources 面板。 
+在 Chrome 中运行 HTML 文件，并打开开发工具中的 Sources 面板。 
 
 ![PNG 10](./illustrations/JSExecutionContext02/png10.png)
 
-在 Sources 面板中，我们在第5行，total 函数上添加一个断点。 
+在 Sources 面板中，我们在第 5 行，total 函数上添加一个断点。 
 
-接下来，刷新页面，右侧的 Call Stack 就会显示调用栈信息。 total 是 total 的执行上下文，而 anonymous 是全局执行上下文。
+接下来，刷新页面，右侧的 Call Stack 就会显示调用栈信息。total 是 total 的执行上下文，而 anonymous 是全局执行上下文。
 
 ## 结论
 
@@ -131,11 +131,11 @@ total 执行上下文是最后一个进入栈的，所以它也第一个离开�
 
 * 新的执行上下文被添加到栈的顶部，顶部的执行上下文有优先权，可以先执行。 
 
-* 只有一个全局执行上下文，它总是在调用栈的底部。在浏览器的开发工具中显示为 anonymous 。 
+* 只有一个全局执行上下文，它总是在调用栈的底部。在浏览器的开发工具中显示为 anonymous。 
 
 资源和参考
 
-[1] 值得一提的是，调用栈（ Call Stack ）并不是后台编程领域中定义的真正的栈数据结构。浏览器模拟的是栈数据结构，所以它们不是完全相同。 
+[1] 值得一提的是，调用栈（Call Stack）并不是后台编程领域中定义的真正的栈数据结构。浏览器模拟的是栈数据结构，所以它们不是完全相同。 
 
 [2] 如果你对栈的数据结构很感兴趣，[这篇帖子](https://cseducators.stackexchange.com/questions/791/what-are-some-good-examples-of-using-a-stack-data-structure#796)分享了一个有趣的比喻。 
 

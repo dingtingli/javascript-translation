@@ -1,5 +1,5 @@
 # JavaScript execution context — scope chain, closure, and this (part 4)
-# 翻译：JavaScript 执行上下文：作用域链，闭包和 This（ Part 4 ）
+# 翻译：JavaScript 执行上下文：作用域链，闭包和 This（Part 4）
 
 点击访问：[原文地址](https://cabulous.medium.com/javascript-execution-context-scope-chain-closure-and-this-part-4-961acd9689c9)
 
@@ -40,11 +40,11 @@ isBanana(); // console.log 将会输出什么？
 * `isBanana` 函数执行上下文 
 * `isApple` 函数执行上下文
 
-接下来，`console` 开始查找变量 `apple` 。
+接下来，`console` 开始查找变量 `apple`。
 
-直观的看，我们可以通过调用栈中从上到下的顺序来查找变量。这样的话 `console` 会输出 `banana` ，因为会在 `isBanana` 函数执行上下文中找到变量 `apple` 。 
+直观的看，我们可以通过调用栈中从上到下的顺序来查找变量。这样的话 `console` 会输出 `banana`，因为会在 `isBanana` 函数执行上下文中找到变量 `apple`。 
 
-不同的是，`console` 实际输出了 `apple` ，这个在全局执行上下文中变量 `apple` 的值。
+不同的是，`console` 实际输出了 `apple`，这个在全局执行上下文中变量 `apple` 的值。
 
 ![PNG 01](./illustrations/JSExecutionContext04/png01.png)
 
@@ -54,13 +54,13 @@ isBanana(); // console.log 将会输出什么？
 
 我们的链条查询遗漏了执行上下文中一个重要的组件—— **`outer`**。 
 
-outer 定义了 JavaScript 引擎如何执行链条查询，也被称为作用域链（ scope chain ）。 
+outer 定义了 JavaScript 引擎如何执行链条查询，也被称为作用域链（scope chain）。 
 
 如果我们看 `isApple` 函数执行上下文，它的 outer 指向的是全局执行上下文。
 
 ![PNG 02](./illustrations/JSExecutionContext04/png02.png)
 
-在这个示例中，JavaScript 引擎子在 `isApple` 函数执行上下文中没有找到变量apple，会立即到全局执行上下文中寻找。 
+在这个示例中，JavaScript 引擎子在 `isApple` 函数执行上下文中没有找到变量 `apple`，会立即到全局执行上下文中寻找。 
 
 谜题解开了吗？ 
 
@@ -76,9 +76,9 @@ outer 定义了 JavaScript 引擎如何执行链条查询，也被称为作用�
 
 为了进一步解答这个问题，我们需要解开 JavaScript 引擎是如何设计词法作用域这个谜题。 
 
-## 词法作用域（ Lexical Scope ）
+## 词法作用域（Lexical Scope）
 
-译注：词法环境（ Lexical Environment ）和词法作用域（ Lexical Scope ）是不同的概念。
+译注：词法环境（Lexical Environment）和词法作用域（Lexical Scope）是不同的概念。
 
 JavaScript 引擎有一个规则：词法作用域是由函数的位置决定的。 
 
@@ -101,7 +101,7 @@ isBanana(); // console.log 将会输出什么？
 
 在这个示例中，`isApple` 和 `isBanana` 这两个函数都是在全局作用域中声明。因此，它们的词法作用域都是全局作用域。 
 
-当 JavaScript 引擎编译代码时，这两个函数执行上下文的outer都指向了全局执行上下文。 
+当 JavaScript 引擎编译代码时，这两个函数执行上下文的 outer 都指向了全局执行上下文。 
 
 为了更好的理解这个特性，让我来看看另外一个代码示例。 
 
@@ -182,9 +182,9 @@ console.log(price.getPrice());
 
 这时，JavaScript 中的词法作用域规则发挥作用——内部函数可以访问外部函数中的变量。 
 
-示例中，内部函数是 `getPrice` 和 `setPrice` ，外部函数是 `applePrice` 。
+示例中，内部函数是 `getPrice` 和 `setPrice`，外部函数是 `applePrice`。
 
-`getPrice` 函数使用了外部函数的两个变量 `fruit` 和 `price` ，`setPrice` 函数使用了一个变量 `price` 。 
+`getPrice` 函数使用了外部函数的两个变量 `fruit` 和 `price`，`setPrice` 函数使用了一个变量 `price`。 
 
 根据规则，`fruit` 和 `price` 被保存到一个单独的区域。这是一个只能由 `getPrice` 和 `setPrice` 访问的专属区域，也被称为**闭包**。
 
@@ -192,11 +192,11 @@ console.log(price.getPrice());
 
 同时，变量 `discount` 被销毁，因为没有任何方法引用它。 
 
-接下来继续执行，并调用 `setPrice` 函数。JavaScript 引擎通过作用域链开始查找，并在闭包中找到变量 `price` ，将其设置为`20` 。 
+接下来继续执行，并调用 `setPrice` 函数。JavaScript 引擎通过作用域链开始查找，并在闭包中找到变量 `price`，将其设置为`20`。 
 
 ![PNG 07](./illustrations/JSExecutionContext04/png07.png)
 
-在最后一行，`getPrice` 被调用。顺着同样的查找路径，JavaScript 引擎在闭包中找到了变量 `fruit` 和 `price` ，并相应的输出 `apple` 和 `20` 。 
+在最后一行，`getPrice` 被调用。顺着同样的查找路径，JavaScript 引擎在闭包中找到了变量 `fruit` 和 `price`，并相应的输出 `apple` 和 `20`。 
 
 ![PNG 08](./illustrations/JSExecutionContext04/png08.png)
 
@@ -210,17 +210,17 @@ console.log(price.getPrice());
 
 我们已经接触了执行上下文中的三个组件： 
 
-* 变量环境（ variable environment ）
-* 词法环境（ lexical environment ）
+* 变量环境（variable environment）
+* 词法环境（lexical environment）
 * outer
 
-最后一个是 this 。
+最后一个是 this。
 
 ![PNG 10](./illustrations/JSExecutionContext04/png10.png)
 
-每个作用域都有自己的 this 。
+每个作用域都有自己的 this。
 
-如果我们在全局作用域中输出 this ，我们会看到 windows 对象。 
+如果我们在全局作用域中输出 this，我们会看到 windows 对象。 
 
 windows 对象是 this 和作用域概念连接的唯一元素，因为它是位于作用域链底部全局作用域的一部分。 
 
@@ -261,15 +261,15 @@ apple.getPrice();
 apple.getThis();
 ```
 
-在这个示例中，`getPrice` 输出 `10` ，`getThis` 输出 `apple` 对象。 
+在这个示例中，`getPrice` 输出 `10`，`getThis` 输出 `apple` 对象。 
 
-所以，我们找到了答案：谁调用这个方法，谁就是 this 。 
+所以，我们找到了答案：谁调用这个方法，谁就是 this。 
 
 从编译和执行两个阶段来看，outer 是在编译阶段定义的，而 this 是在执行阶段确定的。 
 
 当一个函数声明时，它被附加到 window 对象。所以，当你执行函数时，调用该函数的是 windows 对象。因此，this 就是 window 对象。 
 
-我们可以通过改变调用者来重置 this 。
+我们可以通过改变调用者来重置 this。
 
 ```javascript
 const apple = {
@@ -288,7 +288,7 @@ apple.getPrice.call(banana);
 
 在最后一行，我们使用 `call` 函数将 this变成了 `banana` 对象。 
 
-当 JavaScript 引擎执行这一行时，就是 `banana` 对象调用 `getPrice` 函数。因此，this 就是 `banana` 对象，console 输出 `20` 。 
+当 JavaScript 引擎执行这一行时，就是 `banana` 对象调用 `getPrice` 函数。因此，this 就是 `banana` 对象，console 输出 `20`。 
 
  ## 将 this 转换为作用域概念
 
@@ -314,7 +314,7 @@ apple.getPrice();
 
 乍一看，好像是 `getPrice` 调用了。然而，console 输出了 windows 对象。 
 
-到目前为止，我们知道一个函数（或者方法）是由对象或者 windows 调用，而不由函数调用。在上面这个示例中，是 windows 调用 `discount` 。 
+到目前为止，我们知道一个函数（或者方法）是由对象或者 windows 调用，而不由函数调用。在上面这个示例中，是 windows 调用 `discount`。 
 
 这是 JavaScript 设计的缺陷—— this 并不继承于外部的作用域，因为它从来不是作用域概念的一部分。 
 
@@ -353,19 +353,19 @@ const apple = {
 apple.getPrice();
 ```
 
-箭头函数并没有将 this 转换成作用域概念。相反，它只是不创建执行上下文，并共享方法的 this 。
+箭头函数并没有将 this 转换成作用域概念。相反，它只是不创建执行上下文，并共享方法的 this。
 
 ## 结论
 
 * outer 定义了变量的查找链，又称作用域链。 
 
-* 词法作用域定义了 outer ，而词法作用域由编写函数的位置决定。 
+* 词法作用域定义了 outer，而词法作用域由编写函数的位置决定。 
 
 * 作用域链在编译阶段确定，而不是执行阶段。因此，发生在执行阶段的函数调用并不会影响作用域链。 
 
 * 闭包的出现是因为词法作用域规则——内部函数可以范围外部函数中的变量。持有变量引用的函数独占该变量。 
 
-* this 不是作用域的概念。谁调用这个函数（或者方法），谁就是 this 。
+* this 不是作用域的概念。谁调用这个函数（或者方法），谁就是 this。
 
 <br/>
 
