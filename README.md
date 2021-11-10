@@ -50,3 +50,5 @@ JavaScript 文章翻译
 24. [即时编译器 JIT Just-In-Time Compiler](doc/即时编译器.md)
 
 25. [理解 V8 中的字节码](doc/理解V8中的字节码.md)
+
+26. [V8 原理：极快的解析 1 优化扫描器](doc/极快的解析1.md)
