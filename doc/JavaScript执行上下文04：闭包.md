@@ -286,7 +286,7 @@ const banana = {
 apple.getPrice.call(banana);
 ```
 
-在最后一行，我们使用 `call` 函数将 this变成了 `banana` 对象。 
+在最后一行，我们使用 `call` 函数将 this 变成了 `banana` 对象。 
 
 当 JavaScript 引擎执行这一行时，就是 `banana` 对象调用 `getPrice` 函数。因此，this 就是 `banana` 对象，console 输出 `20`。 
 
