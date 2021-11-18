@@ -132,7 +132,7 @@ console.log(orange);
 
 ![PNG 09](./illustrations/JSExecutionContext03/png09.png)
 
-在这里，变量 `banana` 和变量 `orange` 处在一个独立的作用域中，初始值为 `undefined` （译注：此处应为`unintialized`）。 
+在这里，变量 `banana` 和变量 `orange` 处在一个独立的作用域中，初始值为 `undefined`（译注：此处应为`unintialized`）。 
 
 ![PNG 10](./illustrations/JSExecutionContext03/png10.png)
 
@@ -164,7 +164,7 @@ console.log(orange);
 
 ![PNG 17](./illustrations/JSExecutionContext03/png17.png)
 
-整个脚本执行结束。 
+整个脚本执行结束。
 
 除了作用域之外，还有其他与 `let` 和 `const` 相关的问题吗？ 
 
