@@ -80,7 +80,7 @@ void Interpreter::DoLdar(InterpreterAssembler* assembler) {
    Node* value = __ LoadRegister(reg_index);
    __ SetAccumulator(value);
    __ Dispatch();
- }
+}
 ```
 
 字节码处理程序不是被直接调用的，而是被每个字节码处理程序分配到下一个字节码。在 TurboFan 中，字节码分配是尾部调用操作。解释器加载下一个字节码，索引到调度表以获得目标字节码处理程序的代码对象，然后尾部调用该代码对象以分配下一个字节码处理程序。
@@ -89,3 +89,34 @@ void Interpreter::DoLdar(InterpreterAssembler* assembler) {
 
 字节码处理程序的 Graph 生成之后，它就会通过 TurboFan 管道的简化版本，并分配给解释器表中的相应条目。
 
+## 生成字节码
+
+### 解释器寄存器分配
+
+### Context 链
+
+### 常量池条目
+
+### 本地控制流
+
+## 解释器代码执行
+
+### 栈桢布局和保留机器寄存器
+
+### 解释器寄存器访问
+
+### 宽操作数
+
+### JS 调用
+
+### 属性加载和存储
+
+### 二元操作
+
+## TurboFan 字节码图生成器
+
+### 反优化
+
+## 调试支持
+
+### 源代码位置
