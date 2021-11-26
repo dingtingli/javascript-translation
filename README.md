@@ -54,3 +54,5 @@ JavaScript 文章翻译
 26. [V8 原理：极快的解析 1 优化扫描器](doc/极快的解析1.md)
 
 27. [V8 原理：极快的解析 2 惰性解析](doc/极快的解析2.md)
+
+28. [V8 原理：Ignition 解释器](doc/Ignition.md)
