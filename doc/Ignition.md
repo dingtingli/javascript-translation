@@ -191,8 +191,31 @@ String 和 Heap 数字始终被放在常量池中，因为它们位于 Heap 并�
 
 `BytecodeArrayBuilder` 在发出向前跳跃字节码时预留了操作数的大小，并能匹配 `ConstantArrayBuilder` 预留的常量池条目。在跳跃被打补丁的时候，如果位移正好与预留的立即操作数一样大，则取消预留（`ConstantArrayBuilder` 中的预留）空间。否则，常量池中的预留会被修改为跳跃位移值，跳跃字节码和操作数会被补丁为以使用常量池中的跳跃位移值。
 
-
 ### 局部控制流
+
+JavaScript 在语言层面上有许多常用的控制流语句，比如，if，if……else，for 循环，while 循环，do 循环和 switch。同时也有特定的语言结构，for……in 用于遍历对象属性，以及 break 用于中断循序。这些控制流语句只影响编译成字节码后的函数的执行。
+
+在字节码层面，控制流语句被实现为一组有条件或者无条件跳跃的字节码。为了支持 JavaScript 中的 for……in 语句，需要额外的字节码来获取要迭代的信息。
+
+为了方便在字节码中构建控制流结构，`BytecodeArrayBuilder` 支持标签概念，它允许指定偏移量。当标签的位置已知时，`BytecodeGenerator` 通过调用 `BytecodeArrayBuilder::Bind()` 将当前的位置绑定到标签上。当生成向前跳跃的字节码时，`BytecodeGenerator` 可以在标签被绑定之前引用它。
+
+`BytecodeArrayBuilder` 检查所有字节码中引用的标签在 `BytecodeArray` 被发出之前是否被绑定。因为 `Bind()` 调用将标签绑定到正在生成的字节码的末尾，所以标签总是被约束为 bytecode array 中的目标偏移量。
+
+发出跳跃的目标偏移量是作为字节码中的立即操作数 或者 常量池中的索引存在的，不支持跳跃到一个动态计算的值，比如跳跃到一个寄存器中的偏移量。
+
+下面是 if……else 语句生成控制流字节码的例子：
+
+![PNG04](./illustrations/Ignition/png04.png)
+
+if……else 是 `BytecodeGenerator` 发出的最简单的控制流结构。对于更复杂的控制流结构，比如循环和中断，`BytecodeGenerator` 采用了控制流构建器（builder）和控制作用域。
+
+所有循环都使用同一个控制流 builder 的实例，即 LoopBuilder。LoopBuilder 有一组标签，用于循环条件，循环头，continue/next 目标以及循环结束。
+
+循环语句的 Vistor 建立了循环头，循环条件和循环结束的标签位置。Visitor 还通过调用 `BytecodeGenerator::VisitIterationBody` 访问迭代体中的语句。
+
+Vistor 的主体在 `BytecodeGenerator` 中实例化一个 `ControlScopeForIteration` 并将其压入栈中，然后访问循环体中的语句。如果遇到 break 或者 continue 语句，这些语句的 Vistor 会看一眼当前的 `ControlScopeForIteration` 并发 break 或者 continue 信号。控制作用域随后在与之相关的 LoopBuilder 上调用合适的方法，向 LoopBuilder 的标签发出合适的跳跃操作数。
+
+`ControlFlowBuilder` 确保了发出的字节码具有与源代码相同的控制流顺序。这种顺序意味着在字节码中当前循环向后的分支，只有在该循环返回到循环头后才会发出。这种顺序意味着在从字节码转换到 TurboFan 编译器 Graph 格式时，不需要额外的循环分析。用于构建 Graph 的分支分析只需要识别跳跃的位置和它们的目标。
 
 ## 解释器代码执行
 
