@@ -282,6 +282,17 @@ Ignition 通过在字节码前面添加前缀关键字来支持更宽的操作�
 
 ### JS 调用
 
+JS 函数的调用是由 Call 字节码处理的。`BytecodeGenerator` 确保传递给被调用函数的参数在一组连续的寄存器中。然后发出 Call 字节码，该字节码的第一个寄存器操作数指定持有被调用函数的寄存器，第二个寄存器操作数指定持有参数起始位置的寄存器，第三个操作数指定了传递的参数数量。
+
+Call 字节码处理程序，将当前字节码偏移量更新到栈帧中的字节码偏移量 slot 中。这允许遍历栈的代码能够计算出栈里各桢的字节码 PC。
+
+然后调用 `InterpreterPushArgsAndCall` 内置程序，传递被调用者、第一个参数寄存器的内存地址和参数数量。然后 `InterpreterPushArgsAndCall` 内置程序会复制 <first_arg_register>...<first_arg_register + count> 这个范围内的参数值，并将其压入栈中。然后调用内置的 Call，这个内置的 Call 与 Full-Codegen 使用的内置程序相同，用于评估目标地址以调用给定的被调用函数。
+
+调用解释执行的函数与调用 JIT 函数相同 —— 内置的 Call 将加载 JS 函数代码的条目属性（entry field），它将指向解释执行函数的 `InterpreterEntryTrampoline` 内置 stub，因而 Call 将会调用
+ `InterpreterEntryTrampoline` 并重新进入解释器。
+
+当一个解释执行的函数返回时，解释器尾部调用 `InterpreterExitTrampoline` 内置 stub，它会销毁栈帧，并将控制权返回给调用函数，返回值保存在累加器中，在字节码返回的同时一起返回。
+
 ### 属性加载和存储
 
 ### 二元操作
