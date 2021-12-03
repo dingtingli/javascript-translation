@@ -295,7 +295,16 @@ Call 字节码处理程序，将当前字节码偏移量更新到栈帧中的字
 
 ### 属性加载和存储
 
+字节码通过内联缓存（inline Cache：IC）在 JS 对象上加载和储存属性。字节码处理程序和 JIT 代码一样，调用相同的 LoadIC 和 StoreIC 代码 Stub。
+
+由于 Load/Store IC 不再为代码打补丁，而是直接在 `TypeFeedbackVector` 上操作，这意味着相同的 IC 可同时被用在 JIT 和 Ignition 上。
+
+字节码处理程序将函数的 `TypeFeedbackVector` 以及 与操作相关联的 AST 节点的类型反馈 solt 传递给适当的 IC Stub。
+
+IC stub 可以更新 `TypeFeedbackVector` 中的条目，其方式与 Full-Codegen 编译器相同，使得优化编译器能够学习类型反馈，供以后使用。
+
 ### 二元操作
+
 
 ## TurboFan 字节码 Graph 生成器
 
