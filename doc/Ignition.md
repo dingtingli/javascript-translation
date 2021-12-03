@@ -219,11 +219,66 @@ Vistor 的主体在 `BytecodeGenerator` 中实例化一个 `ControlScopeForItera
 
 ## 解释器代码执行
 
-### 栈桢布局和保留机器寄存器
+Ignition 解释器是基于寄存器，间接线程的解释器。从 JavaScript 代码进入解释器的入口是 `InterpreterEntryTrampoline` 内置的 stub。这个内置的 stub 设置了一个合适的栈帧，并在调度被调用函数的第一个字节码之前，加载合适的值到保留留的机器寄存器中（比如，字节码指针。解释器调度表指针）。
+
+### 栈桢布局和保留的机器寄存器
+
+解释器栈帧布局的一个示例：
+
+![PNG05](./illustrations/Ignition/png05.png)
+
+解释器的栈帧是由 `InterpreterEntryTrampoline` 内置的 stub 构建的，它将固定的帧值压入栈中，比如， Caller PC，Frame Pointer，JS Function，Context，Bytecode Array 和 Bytecode Offset。
+
+然后在栈帧中为寄存器文件分配空间，`BytecodeArray` 对象包含一个条目，告知内置的 stub 该函数需要多大的栈帧空间。寄存器文件中的所有寄存器都被写入 `undefined`，这可以确保 GC 在遍历栈的时候不会看到无效指针（即非标记指针）。
+
+`InterpreterEntryTrampoline` 内置的 Stub 初始化了一些被解释器使用的固定机器寄存器：
+
+ * `kInterpreterAccumulatorRegister`：存储隐式的累加器寄存器。
+
+ * `kInterpreterBytecodeArrayRegister`：指向正在被解释的BytecodeArray 对象的起始地址。
+
+ * `kInterpreterBytecodeOffsetRegister`：BytecodeArray 中当前正在执行的偏移量（本质上是字节码的 PC）。
+
+ * `kInterpreterDispatchTableRegister`：指向解释器调度表，用于调度下一个字节码处理程序。
+
+ * `kInterpreterRegisterFileRegister`：指向寄存器文件的起始地址（很快会被删除，因为 TurboFan 可以直接使用父帧指针）。
+
+ * `kContextRegister`：指向当前 Context 对象（很快会被删除，因为所有类似访问都将通过解释器寄存器的 `Register::current_context()`）。
+
+随后它会为字节码流中的第一个字节码调用字节码处理程序。上面初始化的寄存器可以作为 TurboFan 参数节点提供给字节码处理程序，因为字节码调度的惯例是为每个固定的寄存器指定相关参数。
+
+如果字节码处理程序非常简单，没有调用任何其他函数，那么 TurboFan 可以在字节码处理程序中省略栈帧的创建。然而，一些更复杂的字节码处理程序，TurboFan 将会在执行进入字节码处理程序时建立一个新的 stub 栈帧。除了所需的固定帧值外，这个栈帧中只保存 TurboFan 溢出的机器寄存器值（比如，调用中被调用者保存的寄存器）。所有与解释的函数相关的状态都保存在父帧中。
 
 ### 解释器寄存器访问
 
+就是上面一节描述的那样，在字节码生成过程中[译注：执行过程中？]所有局部变量和临时变量都分配在寄存器文件中的特定寄存器中（寄存器文件在函数所在的栈帧中）。这些变量，以及函数的参数，可以被字节码处理程序作为解释器的寄存器来访问。
+
+被字节码处理程序所操作寄存器，在字节码流中被指定为字节码的操作数。解释器从字节码流中加载操作数，以获取它应该操作的寄存器索引。
+
+这个索引是以寄存器文件起始位置为基础的偏移量。偏移量为正的时候，访问栈上的寄存器文件上方的内容，比如函数的参数（[译注：图中 A0，A1]）。偏移量为负的时候，访问寄存器文件的内容，比如局部变量（[译注：图中 R0，R1，R2，R3]）。
+
+![PNG02](./illustrations/Ignition/png02.png)
+
+解释器通过将寄存器索引浓缩为单字节的偏移量，来访问给定的寄存器，然后从 `kInterpreterRegisterFileRegister + offset` 给的位置加载或者存储到具体内存的位置。
+
 ### 宽操作数
+
+将生成的字节码空间最小化是 Ignition 的一个主要目的，所以字节码的格式能够支持不同宽度的操作数。
+
+Ignition 通过在字节码前面添加前缀关键字来支持更宽的操作数。Ignition 支持固定宽度的操作数类型和可扩展宽度的操作数类型。可扩展宽度的操作数的宽度大小与前缀关键字成比例缩放。
+
+固定宽度的操作数用于运行时调用标识符（16 bit）和标志操作数（8 bit）。寄存器操作数，立即操作数，索引操作数和寄存器计数操作数都是基于 8 bit 大小，并且可扩展到 32 bit 宽度。
+
+![PNG06](./illustrations/Ignition/png06.png)
+前缀字节码 `Wide` 和 `Extra Wide` 对累加器加载字节码 `LDAR` 的影响。
+
+前缀字节码 `Wide` 将可扩展操作数的宽度增加两倍，达到 16 bit 的宽度。前缀字节码 `Extra Wide` 将宽度增加四倍，达到 32 bit。
+
+为了支持前缀字节码的调度，字节码调度表里包含了可扩展操作数的条目，每次扩展偏移量为 256，所以 0-255 之间的索引对应没有缩放的字节码，256-511 对应 `Wide` 前缀的字节码，521-767 对应 `Extra Wide` 前缀的字节码。
+
+早期的 Ignition 设计，将宽字节放在同一个 8 bit 空间，这限制了剩余其他可用字节码的数量，这些余下的字节码可以用于其他目的，比如字节码的专业化。这个设计还有一个精心设计的字节码转换方案，用于访问宽寄存器操作数，因为不可能让所有字节码都有可扩展的版本。
+
+使用前缀字节码更简洁，只是在使用时增加了 1 个字节的前缀开销。在 Octane-2.1 的基线测试中，增加的开销不到 1%。
 
 ### JS 调用
 
@@ -231,7 +286,7 @@ Vistor 的主体在 `BytecodeGenerator` 中实例化一个 `ControlScopeForItera
 
 ### 二元操作
 
-## TurboFan 字节码图生成器
+## TurboFan 字节码 Graph 生成器
 
 ### 反优化
 
