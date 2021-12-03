@@ -305,6 +305,11 @@ IC stub 可以更新 `TypeFeedbackVector` 中的条目，其方式与 Full-Codeg
 
 ### 二元操作
 
+对于二元操作（BinaryOps）和其他一元操作（UnaryOps）（比如 ToBoolean），Full-codegen 目前采用给机器码打了补丁的 IC。我们不能在 Ignition 中使用这些 IC，因为它们会给字节码处理程序代码打补丁。因此，我们目前没有收集任何二元和一元操作的类型反馈。
+
+目前，大多数二元和一元操作是调用运行时函数来执行指定操作的。我们正在用 `CodeStubAssembler` 写的 Stub 来替代这些调用，这些 Stub 内联执行的常见情况，只有在更复杂的情况下才调用运行时。目前我们调用这些 Stub，但由于它们是用 `CodeStubAssembler` 写的，我们将很容易将代码直接内联到解释器的字节码处理程序中。
+
+作为将来的优化，我们可能利用给直接的字节码反向打补丁，来指向特定操作的专门的字节码处理程序（比如，内联 SmiAdd 作为特定的字节码），然而这取决于我们最终对 Ignition 中二元操作（BinaryOps）和一元操作（UnaryOps）的类型反馈收集的决定。
 
 ## TurboFan 字节码 Graph 生成器
 
