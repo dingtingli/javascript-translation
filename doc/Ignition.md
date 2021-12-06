@@ -313,10 +313,237 @@ IC stub 可以更新 `TypeFeedbackVector` 中的条目，其方式与 Full-Codeg
 
 ## TurboFan 字节码 Graph 生成器
 
+由 `BytecodeGenerator`创建的 `BytecodeArray` 包含了所有必要的信息，可以提供给 TurboFan 并创建 TurboFan 编译 Graph（图）。这是由 `BytecodeGraphBuilder` 实现的。
+
+首先，`BytecodeGraphBuilder` 通过遍历字节码来执行一些基础的分支分析，从而找到向后和向前的分支目标字节码。这些被用来在创建 TurboFan Graph 的时候，设置适当的循环头环境（在 `BytecodeGraphBuilder` 内部设置）。
+
+然后，`BytecodeGraphBuilder` 再次遍历 `BytecodeArray`，访问每个字节码，并为每个字节码调用特定的字节码 Vistor。字节码 Vistor 函数从 `BytecodeArray` 中读取字节码操作数，然后向 TurboFan Graph 中添加操作，以便执行该字节码。许多字节码都可以直接映射到 TruboFun 中现有的 JSOperator。
+
+`BytecodeGraphBuilder` 维护一个环境，它会跟踪节点，这些节点都将值存储在寄存器文件中寄存器中（包括累加寄存器）。该环境还会跟踪当前 Context 对象（通过 Push/PopContext 字节码来更新）。当 Vistor 访问一个从寄存器中读取数值的字节码时，会在该环境中查找与该寄存器相关的节点，并将该节点作为正在为当前字节码创建的 JSOperator 节点的输入节点。同样，向寄存器或累加器输出值的操作，Vistor 将在完成后用新的节点更新环境寄存器对应的节点。
+
 ### 反优化
+
+在执行过程中，JavaScript 的操作可以触发从优化代码返回未被优化的代码，称为反优化。为了支持反优化，`BytecodeGraphBuilder` 需要跟踪解释器栈帧的状态，这样就可以在反优化的时候重建解释器栈帧，并从反优化的地方重新进入函数。
+
+通过跟踪每个寄存器所关联的节点，`BytecodeGraphBuilder` 维护的环境已经做到了这一点。`BytecodeGraphBuilder` 在 `FrameState` 节点中为可能触发反优化的 JSOperator 节点检查信息（要么急切eager ——基于节点执行前的状态检查点，要么惰性lazy ——基于节点执行后的检查点）。
+
+由于每个字节码都映射到一个 JSOperator 节点上，这意味着我们只会在紧邻字节码前后的某个节点上进行反优化。因此，我们使用字节码偏移量作为反优化节点中的 BailoutId。
+
+当 TurboFan 生成代码来处理潜在的反优化时，它会序列化一条 TranslatedState 记录，其中描述了如何为这个反优化节点重建栈帧。 这是基于反优化点的 FrameState 节点。当这个反优化点被命中时，使用这条 TranslatedState 记录建立栈帧，并通过内置的 InterpreterNotifyDeoptimized 重新从合适的字节码偏移量进入解释器。
 
 ## 调试支持
 
+为了是调试器能够对解释器执行的代码设置断点。调试器复制了函数的 BytecodeArray 对象，然后将断点目标位置的字节码替换成特定的 DebugBreak 字节码。由于所有字节码都只是一个字节，所以不需要在字节码流中另外再分配空间来保证断点可以被设置。
+
+每种大小的字节码都有对应的 DebugBreak 变体，变更之 BytecodeArray 可以被正确的迭代。还有 DebugBreakWide 和
+DebugBreakExtraWide 字节码，它们除了作为断电，还将作为下一个字节码的前缀，比如 Wide 或者 ExtraWide 。
+
+一旦遇到断点，解释器就会调用调试器。调试器可以可以通过查看函数真实的 BytecodeArray 和 调度到被 DebugBreak 字节码替换的实际字节码来恢复执行。
+
+更多细节可以在 [Ignition 设计文档的调度支持](https://docs.google.com/document/d/14P4GwauRJnomjQs9_p_b-naSCm_pjMbHtWT57VmDMJg/edit?usp=drive_web)中查看。
+
 ### 源代码位置
 
+字节码生成器发出字节码时，源码位置与字节码一起被发出（emit）。
+
+有两种类型的源码位置：语句位置和表达式位置。语句位置用于在调试器中的语句间按步执行。语句位置是调试器在调度与之关联的字节码之前可以进入的位置。表达式位置用在表达式抛出异常时提供栈跟踪信息。当异常发生时，调试器从异常发生的地方向后扫描，寻找表达式的位置，这个位置用于栈跟踪。
+
+![PNG07](./illustrations/Ignition/png07.png)
+
+为了使调试器和异常报告可以正常工作，字节码生成过程需要维护源代码位置。字节码生成的过程中，任何优化都需要保证源代码位置有相同的因果排序。一些表达式位置可以被省略，因为它们与不能产生异常的字节码有关，或者是重复的。
+
 ---
+
+### 附录A： 字节码列表
+
+前置字节码
+Wide
+ExtraWide
+
+累加器加载
+LdaZero
+LdaSmi
+LdaUndefined
+LdaNull
+LdaTheHole
+LdaTrue
+LdaFalse
+LdaConstant
+
+加载/存储全局变量
+LdaGlobal
+LdaGlobalInsideTypeof
+StaGlobalSloppy
+StaGlobalStrict
+
+Context 操作
+PushContext
+PopContext
+LdaContextSlot
+StaContextSlot
+
+一元操作
+Inc
+Dec
+LogicalNot
+TypeOf
+DeletePropertyStrict
+DeletePropertySloppy
+
+控制流
+Jump
+JumpConstant
+JumpIfTrue
+JumpIfTrueConstant
+JumpIfFalse
+JumpIfFalseConstant
+JumpIfToBooleanTrue
+JumpIfToBooleanTrueConstant
+JumpIfToBooleanFalse
+JumpIfToBooleanFalseConstant
+JumpIfNull
+JumpIfNullConstant
+JumpIfUndefined
+JumpIfUndefinedConstant
+JumpIfNotHole
+JumpIfNotHoleConstant
+
+加载/存储查找 slot
+LdaLookupSlot
+LdaLookupSlotInsideTypeof
+StaLookupSlotSloppy
+StaLookupSlotStrict
+
+寄存器传输
+Ldar
+Mov
+Star
+
+LoadIC 操作
+LoadIC
+KeyedLoadIC
+
+StoreIC 操作
+StoreICSloppy
+StoreICStrict
+KeyedStoreICSloppy
+KeyedStoreICStrict
+
+二元操作
+Add
+Sub
+Mul
+Div
+Mod
+BitwiseOr
+BitwiseXor
+BitwiseAnd
+ShiftLeft
+ShiftRight
+ShiftRightLogical
+
+For..in 支持
+ForInPrepare
+ForInDone
+ForInNext
+ForInStep
+
+栈保护检查
+StackCheck
+
+非局部控制流
+Throw
+ReThrow
+Return
+
+非法字节码
+Illegal
+
+调用
+Call
+TailCall
+CallRuntime
+CallRuntimeForPair
+CallJSRuntime
+
+内部函数
+InvokeIntrinsic
+
+New 操作
+New
+
+Test 操作
+TestEqual
+TestNotEqual
+TestEqualStrict
+TestLessThan
+TestGreaterThan
+TestLessThanOrEqual
+TestGreaterThanOrEqual
+TestInstanceOf
+TestIn
+
+类型转换操作
+ToName
+ToNumber
+ToObject
+
+Literals
+CreateRegExpLiteral
+CreateArrayLiteral
+CreateObjectLiteral
+
+闭包申请
+CreateClosure
+
+参数申请
+CreateMappedArguments
+CreateUnmappedArguments
+CreateRestParameter
+
+调试支持
+DebugBreak0
+DebugBreak1
+DebugBreak2
+DebugBreak3
+DebugBreak4
+DebugBreak5
+DebugBreak6
+DebugBreakWide
+DebugBreakExtraWide
+
+附录B：参考资料
+
+[1][Threaded Code, in Wikipedia entry,](https://en.wikipedia.org/wiki/Threaded_code)
+
+[2][Revolutionizing Embedded Software, Kasper Verdich Lund and Jakob Roland Andersen, in Master’s Thesis at University of Aarhus,](http://verdich.dk/kasper/RES.pdf
+)
+
+[3][Inside JavaScriptCore's Low-Level Interpreter, Andy Wingo’s blog,](https://wingolog.org/archives/2012/06/27/inside-javascriptcores-low-level-interpreter)
+
+[4][SquirrelFish, David Manelin’s blog, ](https://blog.mozilla.org/dmandelin/2008/06/03/squirrelfish/)
+
+[5][Context Threading, Marc Berndl, Benjamin Vitale, Mathew Zaleski, and Angela Demke Brown,  in CGO ’05: Proceedings of the international symposium on Code generation and optimization, ](http://www.cs.toronto.edu/syslab/pubs/demkea_context.pdf) ([also Mathew Zeleski’s thesis](http://www.cs.toronto.edu/~matz/dissertation/))
+
+[6][Optimizing Indirect Branch Prediction Accuracy in Virtual Machine Interpreters, M. Anton Ertl and David Gregg, in PLDI’03, ](http://www.eecg.toronto.edu/~steffan/carg/readings/optimizing-indirect-branch-prediction.pdf)
+
+[7][The Case for Virtual Register Machines, Brian Davis, Andrew Beatty, Kevin Casey, David Gregg, and John Waldron, in Interpreters, Virtual Machines, and Emulators (IVME’03), ](http://dl.acm.org/citation.cfm?id=858575)
+
+[8][Virtual Machine Showdown: Stack vs Registers, Yuhne Shi, David Gregg, Andrew Beatty, and M. Anton Ertl, in VEE’05. ](https://www.usenix.org/legacy/events/vee05/full_papers/p153-yunhe.pdf)
+
+[9][vmgen - A Generator of Efficient Virtual Machine Interpreters, M. Anton Ertl, David Gregg, Andreas Krall, and Bernd Paysan, in Software: Practice and Experience, 2002. ](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.16.7676&rep=rep1&type=pdf)
+
+[10][The Self Bibliography, ](https://www.cs.ucsb.edu/~urs/oocsb/self/papers/papers.html)
+
+[11][Interpreter Implementation Choices, ](http://realityforge.org/code/virtual-machines/2011/05/19/interpreters.html)
+
+[12][Optimizing an ANSI C Interpreter with Superoperators, Todd A. Proebstring, in POPL’95, ](http://dl.acm.org/citation.cfm?id=199526)
+
+[13][Stack Caching for Interpreters, M Anton Ertl, in SIGPLAN ’95 Conference on Programming Language Design and Implementation, ](http://www.csc.uvic.ca/~csc485c/Papers/ertl94sc.pdf)
+
+[14][Code sharing among states for stack-caching interpreter, Jinzhan Peng, Gansha Wu, Guei-Yuan Lueh, in Proceedings of the 2004 workshop on Interpreters, Virtual Machines, and Emulators, ](http://dl.acm.org/citation.cfm?id=1059584)
+
+[15][Towards Superinstructions for Java Interpeters, K. Casey, D. Gregg, M. A. Ertl, and A. Nisbet, in
+Proceedings of the 7th International Workshop on Software and Compilers for Embedded Systems, ](http://rd.springer.com/chapter/10.1007/978-3-540-39920-9_23)
+
+[16][Branch Prediction and the Perfomance of Interpreters - Don’t Trust Folklore, Erven Rohou, Bharath Narasimha Swamy, Andre Seznec. International Symposium on Code Generation and Optimization, Feb 2015, Burlingame, United States. ](https://hal.inria.fr/hal-00911146/document)
