@@ -356,194 +356,218 @@ DebugBreakExtraWide 字节码，它们除了作为断电，还将作为下一个
 
 ### 附录A： 字节码列表
 
-前置字节码
-Wide
-ExtraWide
+|前置字节码|
+| :--- |
+| Wide |
+| ExtraWide |
 
-累加器加载
-LdaZero
-LdaSmi
-LdaUndefined
-LdaNull
-LdaTheHole
-LdaTrue
-LdaFalse
-LdaConstant
+|累加器加载|
+| :--- |
+| LdaZero |
+| LdaSmi |
+| LdaUndefined |
+| LdaNull |
+| LdaTheHole |
+| LdaTrue |
+| LdaFalse |
+| LdaConstant |
 
-加载/存储全局变量
-LdaGlobal
-LdaGlobalInsideTypeof
-StaGlobalSloppy
-StaGlobalStrict
+|加载/存储全局变量|
+| :--- |
+| LdaGlobal |
+| LdaGlobalInsideTypeof |
+| StaGlobalSloppy |
+| StaGlobalStrict |
 
-Context 操作
-PushContext
-PopContext
-LdaContextSlot
-StaContextSlot
+|Context 操作|
+| :--- |
+| PushContext |
+| PopContext |
+| LdaContextSlot |
+| StaContextSlot |
 
-一元操作
-Inc
-Dec
-LogicalNot
-TypeOf
-DeletePropertyStrict
-DeletePropertySloppy
+|一元操作|
+| :--- |
+| Inc |
+| Dec |
+| LogicalNot |
+| TypeOf |
+| DeletePropertyStrict |
+| DeletePropertySloppy |
 
-控制流
-Jump
-JumpConstant
-JumpIfTrue
-JumpIfTrueConstant
-JumpIfFalse
-JumpIfFalseConstant
-JumpIfToBooleanTrue
-JumpIfToBooleanTrueConstant
-JumpIfToBooleanFalse
-JumpIfToBooleanFalseConstant
-JumpIfNull
-JumpIfNullConstant
-JumpIfUndefined
-JumpIfUndefinedConstant
-JumpIfNotHole
-JumpIfNotHoleConstant
+|控制流|
+| :--- |
+| Jump |
+| JumpConstant |
+| JumpIfTrue |
+| JumpIfTrueConstant |
+| JumpIfFalse |
+| JumpIfFalseConstant |
+| JumpIfToBooleanTrue |
+| JumpIfToBooleanTrueConstant |
+| JumpIfToBooleanFalse |
+| JumpIfToBooleanFalseConstant |
+| JumpIfNull |
+| JumpIfNullConstant |
+| JumpIfUndefined |
+| JumpIfUndefinedConstant |
+| JumpIfNotHole |
+| JumpIfNotHoleConstant |
 
-加载/存储查找 slot
-LdaLookupSlot
-LdaLookupSlotInsideTypeof
-StaLookupSlotSloppy
-StaLookupSlotStrict
+|加载/存储查找 slot|
+| :--- |
+| LdaLookupSlot |
+| LdaLookupSlotInsideTypeof |
+| StaLookupSlotSloppy |
+| StaLookupSlotStrict |
 
-寄存器传输
-Ldar
-Mov
-Star
+|寄存器传输|
+| :--- |
+| Ldar |
+| Mov |
+| Star |
 
-LoadIC 操作
-LoadIC
-KeyedLoadIC
+|LoadIC 操作|
+| :--- |
+| LoadIC |
+| KeyedLoadIC |
 
-StoreIC 操作
-StoreICSloppy
-StoreICStrict
-KeyedStoreICSloppy
-KeyedStoreICStrict
+|StoreIC 操作|
+| :--- |
+| StoreICSloppy |
+| StoreICStrict |
+| KeyedStoreICSloppy |
+| KeyedStoreICStrict |
 
-二元操作
-Add
-Sub
-Mul
-Div
-Mod
-BitwiseOr
-BitwiseXor
-BitwiseAnd
-ShiftLeft
-ShiftRight
-ShiftRightLogical
+|二元操作|
+| :--- |
+| Add |
+| Sub |
+| Mul |
+| Div |
+| Mod |
+| BitwiseOr |
+| BitwiseXor |
+| BitwiseAnd |
+| ShiftLeft |
+| ShiftRight |
+| ShiftRightLogical |
 
-For..in 支持
-ForInPrepare
-ForInDone
-ForInNext
-ForInStep
+|For..in 支持|
+| :--- |
+| ForInPrepare |
+| ForInDone |
+| ForInNext |
+| ForInStep |
 
-栈保护检查
-StackCheck
+|栈保护检查|
+| :--- |
+| StackCheck |
 
-非局部控制流
-Throw
-ReThrow
-Return
+|非局部控制流|
+| :--- |
+| Throw |
+| ReThrow |
+| Return |
 
-非法字节码
-Illegal
+|非法字节码|
+| :--- |
+| Illegal |
 
-调用
-Call
-TailCall
-CallRuntime
-CallRuntimeForPair
-CallJSRuntime
+|调用|
+| :--- |
+| Call |
+| TailCall |
+| CallRuntime |
+| CallRuntimeForPair |
+| CallJSRuntime |
 
-内部函数
-InvokeIntrinsic
+|内部函数|
+| :--- |
+| InvokeIntrinsic |
 
-New 操作
-New
+|New 操作|
+| :--- |
+| New |
 
-Test 操作
-TestEqual
-TestNotEqual
-TestEqualStrict
-TestLessThan
-TestGreaterThan
-TestLessThanOrEqual
-TestGreaterThanOrEqual
-TestInstanceOf
-TestIn
+|Test 操作|
+| :--- |
+| TestEqual |
+| TestNotEqual |
+| TestEqualStrict |
+| TestLessThan |
+| TestGreaterThan |
+| TestLessThanOrEqual |
+| TestGreaterThanOrEqual |
+| TestInstanceOf |
+| TestIn |
 
-类型转换操作
-ToName
-ToNumber
-ToObject
+|类型转换操作|
+| :--- |
+| ToName |
+| ToNumber |
+| ToObject |
 
-Literals
-CreateRegExpLiteral
-CreateArrayLiteral
-CreateObjectLiteral
+|Literals|
+| :--- |
+| CreateRegExpLiteral |
+| CreateArrayLiteral |
+| CreateObjectLiteral |
 
-闭包申请
-CreateClosure
+|闭包申请|
+| :--- |
+| CreateClosure |
 
-参数申请
-CreateMappedArguments
-CreateUnmappedArguments
-CreateRestParameter
+|参数申请|
+| :--- |
+| CreateMappedArguments |
+| CreateUnmappedArguments |
+| CreateRestParameter |
 
-调试支持
-DebugBreak0
-DebugBreak1
-DebugBreak2
-DebugBreak3
-DebugBreak4
-DebugBreak5
-DebugBreak6
-DebugBreakWide
-DebugBreakExtraWide
+|调试支持|
+| :--- |
+| DebugBreak0 |
+| DebugBreak1 |
+| DebugBreak2 |
+| DebugBreak3 |
+| DebugBreak4 |
+| DebugBreak5 |
+| DebugBreak6 |
+| DebugBreakWide |
+| DebugBreakExtraWide |
 
 ### 附录B：参考资料
 
-[1][Threaded Code, in Wikipedia entry,](https://en.wikipedia.org/wiki/Threaded_code)
+[1] [Threaded Code, in Wikipedia entry,](https://en.wikipedia.org/wiki/Threaded_code)
 
-[2][Revolutionizing Embedded Software, Kasper Verdich Lund and Jakob Roland Andersen, in Master’s Thesis at University of Aarhus,](http://verdich.dk/kasper/RES.pdf
+[2] [Revolutionizing Embedded Software, Kasper Verdich Lund and Jakob Roland Andersen, in Master’s Thesis at University of Aarhus,](http://verdich.dk/kasper/RES.pdf
 )
 
-[3][Inside JavaScriptCore's Low-Level Interpreter, Andy Wingo’s blog,](https://wingolog.org/archives/2012/06/27/inside-javascriptcores-low-level-interpreter)
+[3] [Inside JavaScriptCore's Low-Level Interpreter, Andy Wingo’s blog,](https://wingolog.org/archives/2012/06/27/inside-javascriptcores-low-level-interpreter)
 
-[4][SquirrelFish, David Manelin’s blog, ](https://blog.mozilla.org/dmandelin/2008/06/03/squirrelfish/)
+[4] [SquirrelFish, David Manelin’s blog, ](https://blog.mozilla.org/dmandelin/2008/06/03/squirrelfish/)
 
-[5][Context Threading, Marc Berndl, Benjamin Vitale, Mathew Zaleski, and Angela Demke Brown,  in CGO ’05: Proceedings of the international symposium on Code generation and optimization, ](http://www.cs.toronto.edu/syslab/pubs/demkea_context.pdf) ([also Mathew Zeleski’s thesis](http://www.cs.toronto.edu/~matz/dissertation/))
+[5] [Context Threading, Marc Berndl, Benjamin Vitale, Mathew Zaleski, and Angela Demke Brown,  in CGO ’05: Proceedings of the international symposium on Code generation and optimization, ](http://www.cs.toronto.edu/syslab/pubs/demkea_context.pdf) ([also Mathew Zeleski’s thesis](http://www.cs.toronto.edu/~matz/dissertation/))
 
-[6][Optimizing Indirect Branch Prediction Accuracy in Virtual Machine Interpreters, M. Anton Ertl and David Gregg, in PLDI’03, ](http://www.eecg.toronto.edu/~steffan/carg/readings/optimizing-indirect-branch-prediction.pdf)
+[6] [Optimizing Indirect Branch Prediction Accuracy in Virtual Machine Interpreters, M. Anton Ertl and David Gregg, in PLDI’03, ](http://www.eecg.toronto.edu/~steffan/carg/readings/optimizing-indirect-branch-prediction.pdf)
 
-[7][The Case for Virtual Register Machines, Brian Davis, Andrew Beatty, Kevin Casey, David Gregg, and John Waldron, in Interpreters, Virtual Machines, and Emulators (IVME’03), ](http://dl.acm.org/citation.cfm?id=858575)
+[7] [The Case for Virtual Register Machines, Brian Davis, Andrew Beatty, Kevin Casey, David Gregg, and John Waldron, in Interpreters, Virtual Machines, and Emulators (IVME’03), ](http://dl.acm.org/citation.cfm?id=858575)
 
-[8][Virtual Machine Showdown: Stack vs Registers, Yuhne Shi, David Gregg, Andrew Beatty, and M. Anton Ertl, in VEE’05. ](https://www.usenix.org/legacy/events/vee05/full_papers/p153-yunhe.pdf)
+[8] [Virtual Machine Showdown: Stack vs Registers, Yuhne Shi, David Gregg, Andrew Beatty, and M. Anton Ertl, in VEE’05. ](https://www.usenix.org/legacy/events/vee05/full_papers/p153-yunhe.pdf)
 
-[9][vmgen - A Generator of Efficient Virtual Machine Interpreters, M. Anton Ertl, David Gregg, Andreas Krall, and Bernd Paysan, in Software: Practice and Experience, 2002. ](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.16.7676&rep=rep1&type=pdf)
+[9] [vmgen - A Generator of Efficient Virtual Machine Interpreters, M. Anton Ertl, David Gregg, Andreas Krall, and Bernd Paysan, in Software: Practice and Experience, 2002. ](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.16.7676&rep=rep1&type=pdf)
 
-[10][The Self Bibliography, ](https://www.cs.ucsb.edu/~urs/oocsb/self/papers/papers.html)
+[10] [The Self Bibliography, ](https://www.cs.ucsb.edu/~urs/oocsb/self/papers/papers.html)
 
-[11][Interpreter Implementation Choices, ](http://realityforge.org/code/virtual-machines/2011/05/19/interpreters.html)
+[11] [Interpreter Implementation Choices, ](http://realityforge.org/code/virtual-machines/2011/05/19/interpreters.html)
 
-[12][Optimizing an ANSI C Interpreter with Superoperators, Todd A. Proebstring, in POPL’95, ](http://dl.acm.org/citation.cfm?id=199526)
+[12] [Optimizing an ANSI C Interpreter with Superoperators, Todd A. Proebstring, in POPL’95, ](http://dl.acm.org/citation.cfm?id=199526)
 
-[13][Stack Caching for Interpreters, M Anton Ertl, in SIGPLAN ’95 Conference on Programming Language Design and Implementation, ](http://www.csc.uvic.ca/~csc485c/Papers/ertl94sc.pdf)
+[13] [Stack Caching for Interpreters, M Anton Ertl, in SIGPLAN ’95 Conference on Programming Language Design and Implementation, ](http://www.csc.uvic.ca/~csc485c/Papers/ertl94sc.pdf)
 
-[14][Code sharing among states for stack-caching interpreter, Jinzhan Peng, Gansha Wu, Guei-Yuan Lueh, in Proceedings of the 2004 workshop on Interpreters, Virtual Machines, and Emulators, ](http://dl.acm.org/citation.cfm?id=1059584)
+[14] [Code sharing among states for stack-caching interpreter, Jinzhan Peng, Gansha Wu, Guei-Yuan Lueh, in Proceedings of the 2004 workshop on Interpreters, Virtual Machines, and Emulators, ](http://dl.acm.org/citation.cfm?id=1059584)
 
-[15][Towards Superinstructions for Java Interpeters, K. Casey, D. Gregg, M. A. Ertl, and A. Nisbet, in
-Proceedings of the 7th International Workshop on Software and Compilers for Embedded Systems, ](http://rd.springer.com/chapter/10.1007/978-3-540-39920-9_23)
+[15] [Towards Superinstructions for Java Interpeters, K. Casey, D. Gregg, M. A. Ertl, and A. Nisbet, in
+Proceedings of the 7th International Workshop on Software and Compilers for Embedded Systems,](http://rd.springer.com/chapter/10.1007/978-3-540-39920-9_23)
 
-[16][Branch Prediction and the Perfomance of Interpreters - Don’t Trust Folklore, Erven Rohou, Bharath Narasimha Swamy, Andre Seznec. International Symposium on Code Generation and Optimization, Feb 2015, Burlingame, United States. ](https://hal.inria.fr/hal-00911146/document)
+[16] [Branch Prediction and the Perfomance of Interpreters - Don’t Trust Folklore, Erven Rohou, Bharath Narasimha Swamy, Andre Seznec. International Symposium on Code Generation and Optimization, Feb 2015, Burlingame, United States. ](https://hal.inria.fr/hal-00911146/document)
