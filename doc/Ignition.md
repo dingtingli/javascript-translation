@@ -571,3 +571,6 @@ DebugBreakExtraWide 字节码，它们除了作为断电，还将作为下一个
 Proceedings of the 7th International Workshop on Software and Compilers for Embedded Systems,](http://rd.springer.com/chapter/10.1007/978-3-540-39920-9_23)
 
 [16] [Branch Prediction and the Perfomance of Interpreters - Don’t Trust Folklore, Erven Rohou, Bharath Narasimha Swamy, Andre Seznec. International Symposium on Code Generation and Optimization, Feb 2015, Burlingame, United States. ](https://hal.inria.fr/hal-00911146/document)
+
+原文地址：
+https://docs.google.com/document/d/11T2CRex9hXxoJwbYqVQ32yIPMh0uouUZLdyrtmMoL44/edit
