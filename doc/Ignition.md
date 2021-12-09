@@ -152,7 +152,7 @@ void Interpreter::DoLdar(InterpreterAssembler* assembler) {
 
 解释器在栈帧中的 Context 栈槽中跟踪当前 Context 对象（ Context 栈槽 是函数栈帧中固定的一部分，字节码使用 `Register::current_context()` 访问）。当一个新的 Context 被分配，`BytecodeGenerator` 会分配一个 `ContextScope` 对象来跟踪嵌套的 Context 链。
 
-这允许 `BytecodeGenerator` 展开嵌套的 Context 链，使得解释器能够直接访问内部 Context 中分配的任何变量，而不需要遍历整个  Context 链。
+这允许 `BytecodeGenerator` 展开嵌套的 Context 链，使得解释器能够直接访问内部 Context 中分配的任何变量，而不需要遍历整个 Context 链。
 
 当 `ContextScope` 对象被分配时， `ContextPush`字节码也被释放出来（emit）。这个字节码将当前的 Context 对象移到 `BytecodeGenerator` 分配的寄存器中，并将新的 Context 压入 当前的 Context 寄存器中。
 
@@ -163,6 +163,7 @@ void Interpreter::DoLdar(InterpreterAssembler* assembler) {
 通过将当前的上下文作为一个显式的寄存器来维护，而不是仅仅依靠 `BytecodeGenerator` 来跟踪哪个寄存器持有当前的 Context，使得解释器能够执行当前 Context 的操作，而不需要采用额外的操作数来指定哪个寄存器持有当前 Context。比如，将 Context 传递给 JS 函数调用或者 运行时内置函数的操作。
 
 [翻译解读]：Context 里面是什么内容？ [扩展阅读_JavaScript Heap 中的闭包](/doc/JavaScriptHeap中的闭包.md)
+[扩展阅读_探索V8中的闭包](/doc/探索V8中的闭包.md)
 
 ### 常量池条目(Entry)
 
