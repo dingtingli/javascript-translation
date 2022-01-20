@@ -38,7 +38,7 @@ console.log(appleTotal);
 
 ![PNG 02](./illustrations/JSExecutionContext02/png02.png)
 
-在变量环境中，我们看到了变量 `apple` 、`appleTotal` 和函数``total`。然后编译阶段结束，执行阶段开始。 
+在变量环境中，我们看到了变量 `apple` 、`appleTotal` 和函数`total`。然后编译阶段结束，执行阶段开始。 
 
 ![PNG 03](./illustrations/JSExecutionContext02/png03.png)
 
